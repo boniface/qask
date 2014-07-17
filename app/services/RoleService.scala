@@ -5,6 +5,7 @@ import java.util.UUID
 import domain.Role
 import respository.RoleRepository
 
+
 /**
  * Created by hashcode on 2014/06/18.
  */

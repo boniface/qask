@@ -2,6 +2,7 @@ package services
 
 import domain.{DownVote, UpVote}
 import respository.{UpVoteRepository, DownVoteRepository}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * Created by hashcode on 2014/07/08.

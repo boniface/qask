@@ -1,5 +1,7 @@
 package respository
 
+import java.util.UUID
+
 import com.datastax.driver.core.{ResultSet, Row}
 import com.newzly.phantom.CassandraTable
 import com.newzly.phantom.Implicits._
