@@ -3,18 +3,23 @@
 # ~~~~
 
 # Home page
-GET         /                             controllers.Application.index
+GET         /                              controllers.Application.index
 
 # Roles
-POST        /api/role                     controllers.RoleController.create
-GET         /api/role/get/:id             controllers.RoleController.findById(id:java.util.UUID)
-GET         /api/role/roles               controllers.RoleController.findAll()
+POST        /api/role                      controllers.RoleController.create
+GET         /api/role/get/:id              controllers.RoleController.findById(id:java.util.UUID)
+GET         /api/role/roles                controllers.RoleController.findAll()
 
 # Votes
-GET         /api/vote/upvote/:id          controllers.VoteController.upvote(id:String)
-GET         /api/vote/downvote/:id        controllers.VoteController.downvote(id:String)
-GET         /api/vote/votes/:id           controllers.VoteController.votes(id:String)
+GET         /api/vote/upvote/:id           controllers.VoteController.upvote(id:String)
+GET         /api/vote/downvote/:id         controllers.VoteController.downvote(id:String)
+GET         /api/vote/votes/:id            controllers.VoteController.votes(id:String)
+
+# Questions
+POST        /api/question                  controllers.QuestionController.create
+GET         /api/question/get/:id          controllers.QuestionController.findById(id:String)
+GET         /api/question/questions        controllers.QuestionController.findAll()
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                 controllers.Assets.at(path="/public", file)
+GET         /assets/*file                  controllers.Assets.at(path="/public", file)

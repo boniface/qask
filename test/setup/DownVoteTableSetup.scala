@@ -1,5 +1,8 @@
 package setup
 
+import org.scalatest.{GivenWhenThen, FeatureSpec}
+import respository.DownVoteRepository
+
 /**
  * Created by hashcode on 2014/07/07.
  */

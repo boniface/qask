@@ -1,5 +1,7 @@
 package respository
 
+import org.scalatest.{GivenWhenThen, FeatureSpec}
+
 /**
  * Created by hashcode on 2014/07/07.
  */

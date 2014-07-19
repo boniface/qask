@@ -1,6 +1,7 @@
 package services
 
 import domain.UpVote
+import org.scalatest.{GivenWhenThen, FeatureSpec}
 
 
 /**

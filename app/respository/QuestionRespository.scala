@@ -1,16 +1,17 @@
 package respository
 
-import java.util.UUID
+import java.util.{Date, UUID}
 
 import com.datastax.driver.core.{ResultSet, Row}
 import com.newzly.phantom.CassandraTable
 import com.newzly.phantom.Implicits._
-import com.newzly.phantom.column.{DateTimeColumn, TimeUUIDColumn}
+import com.newzly.phantom.column.{DateTimeColumn, TimeUUIDColumn, PrimitiveColumn}
 import com.newzly.phantom.iteratee.Iteratee
-import com.newzly.phantom.keys.{PartitionKey, PrimaryKey}
+import com.newzly.phantom.keys.{PrimaryKey, PartitionKey}
 import conf.DataConnection
-import domain.Question
+import domain.{Role, Question, ReplyResponse}
 import org.joda.time.DateTime
+import respository.RoleRepository._
 
 import scala.concurrent.Future
 
@@ -19,19 +20,22 @@ import scala.concurrent.Future
  */
 class QuestionRespository extends CassandraTable[QuestionRespository, Question] {
 
-  object id extends TimeUUIDColumn(this) with PartitionKey[UUID]
+  object id extends StringColumn(this) with PartitionKey[String]
 
-  object date extends DateTimeColumn(this) with PrimaryKey[DateTime]
+  object date extends DateColumn(this) with PrimaryKey[Date]
 
   object title extends StringColumn(this)
 
   object detail extends StringColumn(this)
 
-  object authorId extends StringColumn(this)
+  object email extends StringColumn(this)
+
+  object screenName extends StringColumn(this)
+
 
 
   override def fromRow(row: Row): Question = {
-    Question(id(row), date(row), title(row), detail(row), authorId(row))
+    Question(id(row), date(row), title(row), detail(row), email(row),screenName(row))
   }
 }
 
@@ -44,7 +48,8 @@ object QuestionRespository extends QuestionRespository with DataConnection {
       .value(_.date, question.date)
       .value(_.title, question.title)
       .value(_.detail, question.detail)
-      .value(_.authorId, question.authourId)
+      .value(_.email, question.email)
+      .value(_.screenName, question.screenNane)
       .future()
   }
 
@@ -52,12 +57,10 @@ object QuestionRespository extends QuestionRespository with DataConnection {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def getRoleById(id: UUID): Future[Option[Question]] = {
+  def getRoleById(id: String): Future[Option[Question]] = {
     select.where(_.id eqs id).one()
   }
 
-  def deleteRoleById(id: UUID): Future[ResultSet] = {
-    delete.where(_.id eqs id).future()
-  }
+
 
 }

@@ -8,7 +8,6 @@ import respository.RoleRepository
  */
 
 class RoleTableSetup extends FeatureSpec with GivenWhenThen {
-
   feature(" Set up Role Table") {
     info("As a Deployer")
     info(" I want to Set up Tables")
