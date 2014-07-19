@@ -16,10 +16,11 @@ object QuestionModel {
   implicit val questionFmt = Json.format[QuestionModel]
 
   def domain(model: QuestionModel) = {
-    Question(md5Hash(UUID.randomUUID().toString())
+    Question(
+      md5Hash(UUID.randomUUID().toString())
       , new Date,
-      model.detail,
       model.title,
+      model.detail,
       model.email,
       model.screenName)
   }

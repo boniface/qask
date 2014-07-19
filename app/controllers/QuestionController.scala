@@ -22,7 +22,8 @@ object QuestionController extends Controller {
       val question = questionModel.getDomain()
       val results = service.save(question)
       results.map(result =>
-        Ok(Json.toJson(result.isExhausted)))
+        Ok(Json.toJson("OK"))
+      )
   }
 
   def findById(id: String) = Action.async {
@@ -39,6 +40,5 @@ object QuestionController extends Controller {
         Ok(Json.toJson(quests))
       })
   }
-
 }
 
