@@ -8,7 +8,7 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2014/07/09.
  */
-case class ReplyResponse(
+case class AnswerComment(
                           responseId: String,
                           id: UUID,
                           date: DateTime,
@@ -17,6 +17,6 @@ case class ReplyResponse(
                           seo: String,
                           ipaddress: String)
 
-object ReplyResponse {
-  implicit val replyFmt = Json.format[ReplyResponse]
+object AnswerComment {
+  implicit val replyFmt = Json.format[AnswerComment]
 }

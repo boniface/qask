@@ -9,7 +9,7 @@ import com.newzly.phantom.column.{DateTimeColumn, TimeUUIDColumn, PrimitiveColum
 import com.newzly.phantom.iteratee.Iteratee
 import com.newzly.phantom.keys.{PrimaryKey, PartitionKey}
 import conf.DataConnection
-import domain.{Role, Question, ReplyResponse}
+import domain.{Role, Question, AnswerComment}
 import org.joda.time.DateTime
 import respository.RoleRepository._
 

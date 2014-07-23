@@ -9,14 +9,14 @@ import com.newzly.phantom.column.{DateTimeColumn, TimeUUIDColumn}
 import com.newzly.phantom.iteratee.Iteratee
 import com.newzly.phantom.keys.{PartitionKey, PrimaryKey}
 import conf.DataConnection
-import domain.ReplyResponse
+import domain.AnswerComment
 
 import scala.concurrent.Future
 
 /**
  * Created by hashcode on 2014/07/09.
  */
-sealed class ResponseReplyRepository extends CassandraTable[ResponseReplyRepository, ReplyResponse] {
+sealed class AnswerCommentRepository extends CassandraTable[AnswerCommentRepository, AnswerComment] {
 
   object responseId extends StringColumn(this) with PartitionKey[String]
 
@@ -32,15 +32,15 @@ sealed class ResponseReplyRepository extends CassandraTable[ResponseReplyReposit
 
   object ipaddress extends StringColumn(this)
 
-  override def fromRow(row: Row): ReplyResponse = {
-    ReplyResponse(responseId(row), id(row), date(row), comment(row), userId(row), seo(row), ipaddress(row))
+  override def fromRow(row: Row): AnswerComment = {
+    AnswerComment(responseId(row), id(row), date(row), comment(row), userId(row), seo(row), ipaddress(row))
   }
 }
 
-object ResponseReplyRepository extends ResponseReplyRepository with DataConnection {
+object AnswerCommentRepository extends AnswerCommentRepository with DataConnection {
   override lazy val tableName = "replies"
 
-  def save(reply: ReplyResponse): Future[ResultSet] = {
+  def save(reply: AnswerComment): Future[ResultSet] = {
     insert
       .value(_.responseId, reply.responseId)
       .value(_.id, reply.id)
@@ -52,7 +52,7 @@ object ResponseReplyRepository extends ResponseReplyRepository with DataConnecti
       .future()
   }
 
-  def getReplyByResponseId(respinseId: String): Future[Seq[ReplyResponse]] = {
+  def getReplyByResponseId(respinseId: String): Future[Seq[AnswerComment]] = {
     select.where(_.responseId eqs respinseId).fetchEnumerator() run Iteratee.collect()
   }
 

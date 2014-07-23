@@ -21,7 +21,7 @@ class QuestionTestController extends Specification {
 
 
     "Should Save Question Object" in new WithApplication {
-      for (i <- 1 to 50) {
+      for (i <- 1 to 1) {
 
         val role = QuestionModel(
           "This the Question being asked and is Number "+i,
