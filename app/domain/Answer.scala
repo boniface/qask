@@ -10,7 +10,7 @@ import play.api.libs.json.Json
  */
 case class Answer(
                      questionId: String,
-                     id: UUID,
+                     id: String,
                      date: DateTime,
                      answer: String,
                      email: String,

@@ -20,7 +20,7 @@ sealed class AnswerRepository extends CassandraTable[AnswerRepository, Answer] {
 
   object questionId extends StringColumn(this) with PartitionKey[String]
 
-  object id extends TimeUUIDColumn(this) with PrimaryKey[UUID]
+  object id extends StringColumn(this) with PrimaryKey[String]
 
   object date extends DateTimeColumn(this)
 
@@ -40,19 +40,19 @@ sealed class AnswerRepository extends CassandraTable[AnswerRepository, Answer] {
 object AnswerRepository extends AnswerRepository with DataConnection {
   override lazy val tableName = "answers"
 
-  def save(response: Answer): Future[ResultSet] = {
+  def save(answer: Answer): Future[ResultSet] = {
     insert
-      .value(_.questionId, response.questionId)
-      .value(_.id, response.id)
-      .value(_.date, response.date)
-      .value(_.email, response.email)
-      .value(_.screenName, response.screenName)
-      .value(_.answer, response.answer)
-      .value(_.ipaddress, response.ipaddress)
+      .value(_.questionId, answer.questionId)
+      .value(_.id, answer.id)
+      .value(_.date, answer.date)
+      .value(_.email, answer.email)
+      .value(_.screenName, answer.screenName)
+      .value(_.answer, answer.answer)
+      .value(_.ipaddress, answer.ipaddress)
       .future()
   }
 
-  def getReplyByResponseId(questionId: String): Future[Seq[Answer]] = {
+  def getAnswersByQuestionId(questionId: String): Future[Seq[Answer]] = {
     select.where(_.questionId eqs questionId).fetchEnumerator() run Iteratee.collect()
   }
 

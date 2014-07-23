@@ -1,7 +1,7 @@
 package setup
 
 import org.scalatest.{GivenWhenThen, FeatureSpec}
-import respository.{QuestionRespository, UpVoteRepository}
+import respository.{CommentRepository, AnswerRepository, QuestionRespository, UpVoteRepository}
 
 /**
  * Created by hashcode on 2014/07/07.
@@ -18,9 +18,13 @@ class UpVoteTableSetup extends FeatureSpec with GivenWhenThen {
       Given("Given a Connection to the Database Through a Respository")
       val upvotetable = UpVoteRepository
       val questionsTable = QuestionRespository
+      val answerTAble = AnswerRepository
+      val commentsTable = CommentRepository
       When(" When Create method is called ")
       upvotetable.createTable()
       questionsTable.createTable()
+      answerTAble.createTable()
+      commentsTable.createTable()
       Then(" The The Table is Created")
 
     }

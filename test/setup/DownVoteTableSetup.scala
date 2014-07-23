@@ -17,6 +17,7 @@ class DownVoteTableSetup extends FeatureSpec with GivenWhenThen {
     scenario(" Create Tables in the Database ") {
       Given("Given a Connection to the Database Through a Respository")
       val downvotetable = DownVoteRepository
+
       When(" When Create method is called ")
       downvotetable.createTable()
       Then(" The The Table is Created")
