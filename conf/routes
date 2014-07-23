@@ -1,7 +1,7 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-#make this the first rule
+#CORS Path
 OPTIONS        /*path                         controllers.Application.options(path)
 # Home page
 GET            /                              controllers.Application.index
@@ -20,6 +20,14 @@ GET            /api/vote/votes/:id            controllers.VoteController.votes(i
 POST           /api/question                  controllers.QuestionController.create
 GET            /api/question/get/:id          controllers.QuestionController.findById(id:String)
 GET            /api/question/questions        controllers.QuestionController.findAll()
+
+# Comments
+POST           /api/comment                   controllers.CommentController.create
+GET            /api/comment/get/:id           controllers.CommentController.findCommentById(id:String)
+
+# Answers
+POST           /api/answer                    controllers.AnswerController.create
+GET            /api/answer/get/:id            controllers.AnswerController.findAnswersById(id:String)
 
 
 
