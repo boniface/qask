@@ -3,11 +3,9 @@ package respository
 import java.util.UUID
 
 import com.datastax.driver.core.{ResultSet, Row}
-import com.newzly.phantom.CassandraTable
-import com.newzly.phantom.Implicits._
-import com.newzly.phantom.column.{DateTimeColumn, TimeUUIDColumn}
-import com.newzly.phantom.iteratee.Iteratee
-import com.newzly.phantom.keys.{PartitionKey, PrimaryKey}
+import com.websudos.phantom.Implicits._
+import com.websudos.phantom.iteratee.Iteratee
+import com.websudos.phantom.keys.PrimaryKey
 import conf.DataConnection
 import domain.Comment
 

@@ -2,7 +2,7 @@ package models
 
 import java.util.UUID
 
-import domain.Answer
+import domain.{Comment, Answer}
 import org.joda.time.DateTime
 import play.api.libs.json.Json
 
@@ -19,6 +19,7 @@ case class AnswerModel( questionId: String,
 object AnswerModel{
   implicit val ansFmt = Json.format[AnswerModel]
   def domain(model: AnswerModel) = {
+    val comments = Seq[Comment]()
     Answer(
       model.questionId,
       md5Hash(UUID.randomUUID().toString())
@@ -26,7 +27,8 @@ object AnswerModel{
       model.answer,
       model.email,
       model.screenName,
-      model.email)
+      model.email,
+      comments)
   }
 
   def md5Hash(text: String): String = {

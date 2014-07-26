@@ -9,7 +9,7 @@ import respository.AnswerRepository
 class AnswerService {
   val repo = AnswerRepository
 
-  def save(answer:Answer) = {
+  def save(answer: Answer) = {
     repo.save(answer)
   }
 

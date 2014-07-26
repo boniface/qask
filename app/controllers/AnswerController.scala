@@ -1,6 +1,6 @@
 package controllers
 
-import models.AnswerModel
+import models.{AnswerModel}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.AnswerService
@@ -27,7 +27,9 @@ object AnswerController extends Controller{
   def findAnswersById(id: String) = Action.async {
     request =>
       val answers = service.getAnswers(id)
-      answers map (quest => Ok(Json.toJson(quest)))
+      answers map (quest => {
+        Ok(Json.toJson(quest))
+      })
   }
 
 

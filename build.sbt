@@ -13,13 +13,12 @@ libraryDependencies ++= Seq(
   ws
 )
 
+resolvers += "newzly External snapshots" at "http://newzly-artifactory.elasticbeanstalk.com/ext-release-local"
+
 libraryDependencies += "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.3"
 
-libraryDependencies += "com.newzly" % "phantom-dsl_2.10" % "0.8.0"
+libraryDependencies += "com.websudos"  %% "phantom-dsl"  % "0.9.8"
 
-libraryDependencies += "com.newzly" % "phantom-cassandra-unit_2.10" % "0.8.0"
-
-libraryDependencies += "com.newzly" % "phantom-test_2.10" % "0.8.0"
 
 libraryDependencies += "joda-time" % "joda-time" % "2.3"
 

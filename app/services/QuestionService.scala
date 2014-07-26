@@ -13,9 +13,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class QuestionService {
   val repo = QuestionRespository
 
-  def getQuestionBeforedate(date:Date) ={
-    repo.geAllQuestions map( questions=> questions.filter(_.date.before(date)))
-  }
+//  def getQuestionBeforedate(date:Date) ={
+//    repo.geAllQuestions map( questions=> questions.filter(_.date.before(date)))
+//  }
 
   def save(question:Question) = {
     repo.save(question)

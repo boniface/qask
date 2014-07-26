@@ -1,7 +1,8 @@
 package conf
 
 import com.datastax.driver.core.{Cluster, Session}
-import com.newzly.phantom.Implicits._
+import com.websudos.phantom.Implicits._
+
 
 import scala.concurrent.{Future, blocking}
 

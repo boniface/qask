@@ -3,13 +3,11 @@ package respository
 import java.util.UUID
 
 import com.datastax.driver.core.{ResultSet, Row}
-import com.newzly.phantom.CassandraTable
-import com.newzly.phantom.Implicits._
-import com.newzly.phantom.column.{DateTimeColumn, TimeUUIDColumn}
-import com.newzly.phantom.iteratee.Iteratee
-import com.newzly.phantom.keys.{PartitionKey, PrimaryKey}
+import com.websudos.phantom.Implicits._
+import com.websudos.phantom.iteratee.Iteratee
+import com.websudos.phantom.keys.PrimaryKey
 import conf.DataConnection
-import domain.Answer
+import domain.{Comment, Answer}
 
 import scala.concurrent.Future
 
@@ -32,8 +30,17 @@ sealed class AnswerRepository extends CassandraTable[AnswerRepository, Answer] {
 
   object ipaddress extends StringColumn(this)
 
+
   override def fromRow(row: Row): Answer = {
-    Answer(questionId(row), id(row), date(row), answer(row), email(row), screenName(row), ipaddress(row))
+    val coms = Seq[Comment]()
+    Answer(questionId(row),
+      id(row),
+      date(row),
+      answer(row),
+      email(row),
+      screenName(row),
+      ipaddress(row),
+      coms)
   }
 }
 
