@@ -20,6 +20,7 @@ class QuestionRespository extends CassandraTable[QuestionRespository, Question] 
 
   object id extends StringColumn(this) with PartitionKey[String]
 
+  object zone extends StringColumn(this) with PrimaryKey[String]
   object date extends DateColumn(this) with PrimaryKey[Date]
 
   object title extends StringColumn(this)
@@ -33,7 +34,7 @@ class QuestionRespository extends CassandraTable[QuestionRespository, Question] 
 
 
   override def fromRow(row: Row): Question = {
-    Question(id(row), date(row), title(row), detail(row), email(row),screenName(row))
+    Question(id(row),zone(row), date(row), title(row), detail(row), email(row),screenName(row))
   }
 }
 
@@ -47,6 +48,7 @@ object QuestionRespository extends QuestionRespository with DataConnection {
       .value(_.title, question.title)
       .value(_.detail, question.detail)
       .value(_.email, question.email)
+      .value(_.zone, question.zone)
       .value(_.screenName, question.screenNane)
       .future()
   }

@@ -17,8 +17,9 @@ object QuestionModel {
 
   def domain(model: QuestionModel) = {
     Question(
-      md5Hash(UUID.randomUUID().toString())
-      , new Date,
+      md5Hash(UUID.randomUUID().toString()),
+      "",
+      new Date,
       model.title,
       model.detail,
       model.email,

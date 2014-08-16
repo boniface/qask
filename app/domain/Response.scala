@@ -7,24 +7,19 @@ import respository.CommentRepository
 /**
  * Created by hashcode on 2014/07/09.
  */
-case class Answer(
+case class Response(
                    questionId: String,
                    id: String,
                    date: DateTime,
                    answer: String,
                    email: String,
                    screenName: String,
-                   ipaddress: String,
-                   comments: Seq[Comment]= Seq[Comment]()) {
-  def getComments = Answer.getComments(this)
+                   ipaddress: String
+                   )
 
-}
+object Response {
+  implicit val answerFmt = Json.format[Response]
 
-object Answer {
-  implicit val answerFmt = Json.format[Answer]
 
-  def getComments(answer: Answer) = {
-    CommentRepository.getCommentsByAnswerId(answer.id)
-  }
 
 }

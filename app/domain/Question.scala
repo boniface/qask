@@ -10,6 +10,7 @@ import play.api.libs.json.Json
  */
 case class Question(
                      id: String,
+                     zone:String,
                      date: Date,
                      title: String,
                      detail: String,

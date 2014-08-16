@@ -19,14 +19,16 @@ import scala.concurrent.Future
  */
 sealed class AbuseReportRespository extends CassandraTable[AbuseReportRespository, AbuseReport] {
 
-  object topicId extends StringColumn(this) with PartitionKey[String]
+  object id extends StringColumn(this) with PartitionKey[String]
 
   object userId extends StringColumn(this) with PrimaryKey[String]
+  object zone extends StringColumn(this) with PrimaryKey[String]
 
   object comment extends OptionalStringColumn(this)
 
   override def fromRow(row: Row): AbuseReport = {
-    AbuseReport(topicId(row),
+    AbuseReport(id(row),
+      zone(row),
       comment(row),
       userId(row))
   }
@@ -37,13 +39,14 @@ object AbuseReportRespository extends AbuseReportRespository with DataConnection
 
   def save(moderate: AbuseReport): Future[ResultSet] = {
     insert
-      .value(_.topicId, moderate.topicId)
+      .value(_.id, moderate.id)
+      .value(_.zone, moderate.zone)
       .value(_.comment, moderate.comment)
       .value(_.userId, moderate.userId)
       .future()
   }
 
   def getAbuseByTopic(topicId: String): Future[Seq[AbuseReport]] = {
-    select.where(_.topicId eqs topicId).fetchEnumerator() run Iteratee.collect()
+    select.where(_.id eqs topicId).fetchEnumerator() run Iteratee.collect()
   }
 }

@@ -1,7 +1,7 @@
 package setup
 
 import org.scalatest.{GivenWhenThen, FeatureSpec}
-import respository.DownVoteRepository
+import respository.{StatsRepository, DownVoteRepository}
 
 /**
  * Created by hashcode on 2014/07/07.
@@ -17,9 +17,11 @@ class DownVoteTableSetup extends FeatureSpec with GivenWhenThen {
     scenario(" Create Tables in the Database ") {
       Given("Given a Connection to the Database Through a Respository")
       val downvotetable = DownVoteRepository
+      val questionViewTable = StatsRepository
 
       When(" When Create method is called ")
       downvotetable.createTable()
+      questionViewTable.createTable()
       Then(" The The Table is Created")
 
     }

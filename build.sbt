@@ -17,8 +17,9 @@ resolvers += "newzly External snapshots" at "http://newzly-artifactory.elasticbe
 
 libraryDependencies += "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.3"
 
-libraryDependencies += "com.websudos"  %% "phantom-dsl"  % "0.9.8"
+libraryDependencies += "com.websudos"  %% "phantom-dsl"  % "1.0.7"
 
+libraryDependencies += "net.liftweb" % "lift-json_2.10" % "2.6-M4"
 
 libraryDependencies += "joda-time" % "joda-time" % "2.3"
 

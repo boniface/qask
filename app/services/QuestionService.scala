@@ -2,9 +2,9 @@ package services
 
 import java.util.{Date, UUID}
 
-import domain.Question
+import domain.{Stats, Question}
 import org.joda.time.DateTime
-import respository.QuestionRespository
+import respository.{ResponseRepository, StatsRepository, QuestionRespository}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
@@ -12,6 +12,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
  */
 class QuestionService {
   val repo = QuestionRespository
+  val statsRepo = StatsRepository
+  val answerrepo = ResponseRepository
 
 //  def getQuestionBeforedate(date:Date) ={
 //    repo.geAllQuestions map( questions=> questions.filter(_.date.before(date)))
@@ -21,13 +23,23 @@ class QuestionService {
     repo.save(question)
   }
 
-  def getQUestionById(id:String) ={
+  def getQuestionById(id:String) ={
     repo.getRoleById(id)
   }
 
   def getAllQuestion = {
     repo.geAllQuestions
+  }
+
+  def countStat(view:Stats) = {
+    statsRepo.statcount(view)
 
   }
+
+  def getStats(id:String,item:String) = {
+    statsRepo.getStats(id,item)
+  }
+
+
 
 }

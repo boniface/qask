@@ -2,6 +2,7 @@ package controllers
 
 import java.util.UUID
 
+import domain.Stats
 import models.QuestionModel
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
@@ -22,14 +23,19 @@ object QuestionController extends Controller {
       val question = questionModel.getDomain()
       val results = service.save(question)
       results.map(result =>
-        Ok(Json.toJson("OK"))
+        Ok(Json.toJson(question))
       )
   }
 
   def findById(id: String) = Action.async {
     request =>
-      val question = service.getQUestionById(id)
-      question map (quest => Ok(Json.toJson(quest)))
+      val question = service.getQuestionById(id)
+      question map(q => q match {
+        case Some(q) =>service.countStat(Stats(id,request.domain,1L))
+        case None => None
+      })
+      question map (quest =>
+        Ok(Json.toJson(quest)))
   }
 
   //
@@ -40,5 +46,16 @@ object QuestionController extends Controller {
         Ok(Json.toJson(quests))
       })
   }
+
+  def getStats(questionId:String)=Action.async{
+    request =>
+     val stats = service.getStats(questionId,request.domain)
+     stats map (stat => Ok(Json.toJson(stat match {
+       case Some(view)=>view.counter
+       case None => 0})))
+
+  }
+
+ 
 }
 
