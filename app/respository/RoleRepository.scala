@@ -16,7 +16,7 @@ import scala.concurrent.Future
  */
 sealed class RoleRepository extends CassandraTable[RoleRepository, Role] {
 
-  object id extends UUIDColumn(this) with PartitionKey[UUID]
+  object id extends StringColumn(this) with PartitionKey[String]
 
   object rolename extends StringColumn(this)
 
@@ -42,7 +42,7 @@ object RoleRepository extends RoleRepository with DataConnection {
       .future()
   }
 
-  def getRoleById(id: UUID): Future[Option[Role]] = {
+  def getRoleById(id: String): Future[Option[Role]] = {
     select.where(_.id eqs id).one()
   }
 
@@ -50,15 +50,15 @@ object RoleRepository extends RoleRepository with DataConnection {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def updateRoleDescription(id: UUID, description: String): Future[ResultSet] = {
+  def updateRoleDescription(id: String, description: String): Future[ResultSet] = {
     update.where(_.id eqs id).modify(_.description setTo (description)).future()
   }
 
-  def updateRoleName(id: UUID, rolename: String): Future[ResultSet] = {
+  def updateRoleName(id: String, rolename: String): Future[ResultSet] = {
     update.where(_.id eqs id).modify(_.rolename setTo (rolename)).future()
   }
 
-  def deleteRoleById(id: UUID): Future[ResultSet] = {
+  def deleteRoleById(id: String): Future[ResultSet] = {
     delete.where(_.id eqs id).future()
   }
 

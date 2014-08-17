@@ -9,7 +9,7 @@ GET            /test/:zone/:id                              controllers.Applicat
 
 # Roles
 POST           /api/role                          controllers.RoleController.create
-GET            /api/role/get/:id                  controllers.RoleController.findById(id:java.util.UUID)
+GET            /api/role/get/:id                  controllers.RoleController.findById(id:String)
 GET            /api/role/roles                    controllers.RoleController.findAll()
 
 # Votes

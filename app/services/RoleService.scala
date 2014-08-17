@@ -1,6 +1,6 @@
 package services
 
-import java.util.UUID
+
 
 import domain.Role
 import respository.RoleRepository
@@ -9,7 +9,7 @@ import respository.RoleRepository
 /**
  * Created by hashcode on 2014/06/18.
  */
-class RoleService {
+object RoleService {
 
   def save(role: Role) = {
     RoleRepository.save(role)
@@ -19,19 +19,19 @@ class RoleService {
     RoleRepository.getAllRoles
   }
 
-  def findById(roleid: UUID) = {
+  def findById(roleid: String) = {
     RoleRepository.getRoleById(roleid)
   }
 
-  def updateRoleName(roleid: UUID, rolename: String) = {
+  def updateRoleName(roleid: String, rolename: String) = {
     RoleRepository.updateRoleName(roleid, rolename)
   }
 
-  def updateDescription(roleid: UUID, description: String) = {
+  def updateDescription(roleid: String, description: String) = {
     RoleRepository.updateRoleDescription(roleid, description)
   }
 
-  def deleteRole(roleId: UUID) = {
+  def deleteRole(roleId: String) = {
     RoleRepository.deleteRoleById(roleId)
   }
 

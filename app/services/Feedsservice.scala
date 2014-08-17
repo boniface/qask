@@ -22,32 +22,32 @@ import respository.FeedsRespository
 /**
  * Created by hashcode on 2014/07/12.
  */
-class Feedsservice {
-  def service = FeedsRespository
+object Feedsservice {
+
 
   def save(feed: Feeds) = {
-    service.save(feed)
+    FeedsRespository.save(feed)
   }
 
   def update(feed: Feeds) = {
-    service.updateFeed(feed.id, feed)
+    FeedsRespository.updateFeed(feed.id, feed)
   }
 
   def delete(id: String) = {
-    service.deleteFeedById(id)
+    FeedsRespository.deleteFeedById(id)
   }
 
   def getFeedById(id: String) = {
-    service.getFeedById(id)
+    FeedsRespository.getFeedById(id)
   }
 
   def getAllFeeds = {
-    val feeds = service.getAllFeeds
+    val feeds = FeedsRespository.getAllFeeds
     feeds
   }
 
   def getFeedsbySite(siteId: String) = {
-    val feeds = service.getAllFeeds
+    val feeds = FeedsRespository.getAllFeeds
 
     feeds
 

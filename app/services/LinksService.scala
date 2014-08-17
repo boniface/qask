@@ -21,7 +21,7 @@ import respository.LinksRespository
 /**
  * Created by hashcode on 2014/07/12.
  */
-class LinksService {
+object LinksService {
   def service = LinksRespository
 
   def getAllLinks = {

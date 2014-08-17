@@ -24,7 +24,7 @@ import respository.SiteRepository
 /**
  * Created by hashcode on 2014/07/12.
  */
-class SiteService {
+object SiteService {
   def service = SiteRepository
 
   def save(site: Site) = {

@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Created by hashcode on 2014/07/17.
  */
-class QuestionService {
+object QuestionService {
   val repo = QuestionRespository
   val statsRepo = StatsRepository
   val answerrepo = ResponseRepository

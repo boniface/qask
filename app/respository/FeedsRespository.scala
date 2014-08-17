@@ -71,6 +71,10 @@ object FeedsRespository extends FeedsRespository with DataConnection {
     select.where(_.id eqs feedId).one();
   }
 
+  def getFeedsByZone(zone: String): Future[Seq[Feeds]] = {
+    select.where(_.zone eqs zone).fetchEnumerator() run Iteratee.collect()
+  }
+
   def getAllFeeds: Future[Seq[Feeds]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }

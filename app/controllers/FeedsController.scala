@@ -16,7 +16,6 @@
 
 package controllers
 
-import java.util.UUID
 
 
 import models.FeedsModel
@@ -31,28 +30,28 @@ import scala.concurrent.ExecutionContext.Implicits.global
  */
 object FeedsController extends Controller {
 
-  val service = new Feedsservice
+
 
   def create = Action.async(parse.json) {
     request =>
       val input = request.body
       val feedsModel = Json.fromJson[FeedsModel](input).get
       val feed = feedsModel.getDomain()
-      val results = service.save(feed)
+      val results = Feedsservice.save(feed)
       results.map(result =>
         Ok(Json.toJson(result.isExhausted)))
   }
 
   def findById(id: String) = Action.async {
     request =>
-      val feed = service.getFeedById(id)
+      val feed = Feedsservice.getFeedById(id)
       feed map (f => Ok(Json.toJson(f)))
   }
 
   //
   def findAll = Action.async {
     request =>
-      val feeds = service.getAllFeeds
+      val feeds = Feedsservice.getAllFeeds
       feeds map (feed => {
         Ok(Json.toJson(feed))
       })
@@ -60,7 +59,7 @@ object FeedsController extends Controller {
 
   def findBySite(siteId: String) = Action.async {
     request =>
-      val feeds = service.getFeedsbySite(siteId)
+      val feeds = Feedsservice.getFeedsbySite(siteId)
       feeds map (feed => {
         Ok(Json.toJson(feed))
       })

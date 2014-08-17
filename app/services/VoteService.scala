@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Created by hashcode on 2014/07/08.
  */
-class VoteService {
+object VoteService {
   def getDownVotes(subjectId: String) = {
     DownVoteRepository.getVotesBySubjectId(subjectId)
   }

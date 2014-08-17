@@ -1,6 +1,6 @@
 package domain
 
-import java.util.UUID
+
 
 import play.api.libs.json.Json
 
@@ -8,7 +8,7 @@ import play.api.libs.json.Json
  * Created by hashcode on 2014/07/07.
  */
 case class Role(
-                 id: UUID,
+                 id: String,
                  rolename: String,
                  description: String
                  )

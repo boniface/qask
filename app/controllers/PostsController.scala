@@ -27,11 +27,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
  */
 object PostsController extends Controller {
 
-  val service = new PostsService
 
   def getsiteposts(site: String) = Action.async {
     request =>
-      val posts = service.getPostsBySite(site)
+      val posts = PostsService.getPostsBySite(site)
       posts map (post => Ok(Json.toJson(post)))
   }
 

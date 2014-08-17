@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 /**
  * Created by hashcode on 2014/07/23.
  */
-class AnswerService {
+object AnswerService {
   val repo = ResponseRepository
   val statsRepo = StatsRepository
 

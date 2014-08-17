@@ -22,7 +22,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Created by hashcode on 2014/07/12.
  */
-class PostsService {
+object PostsService {
   def repo = PostRespository
 
   def getPostsBySite(domain: String) = {
