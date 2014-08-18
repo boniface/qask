@@ -10,7 +10,7 @@ import scala.concurrent.{Future, blocking}
  * Created by hashcode on 2014/07/07.
  */
 object DataConnection {
-  val keySpace = "askzambia"
+  val keySpace = "hashmedia"
 
   lazy val cluster = Cluster.builder()
     .addContactPoint("localhost")
