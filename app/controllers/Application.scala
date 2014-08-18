@@ -24,6 +24,7 @@ object Application extends Controller {
       println("Output4", request.uri)
       println("Output 5", request.remoteAddress)
       Ok("Testing Params")
+      
   }
 
   def dbsetup = Action.async {
