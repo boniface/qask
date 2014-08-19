@@ -20,7 +20,7 @@ object Application extends Controller {
     request =>
       println("The ZONE IS ", zone)
       println("THE ID IS ", id)
-   
+
       println("Output 5", request.remoteAddress)
       Ok("Testing Params")
 
@@ -42,6 +42,7 @@ object Application extends Controller {
       si <- SiteRepository.createTable()
       uv <- UpVoteRepository.createTable()
       zr <- ZoneRespository.createTable()
+      st <-StatsRepository.createTable()
     } yield (ab)
     results map (result => {
       Ok(Json.toJson("Done"))

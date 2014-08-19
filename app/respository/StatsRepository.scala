@@ -38,8 +38,8 @@ object StatsRepository extends StatsRepository with DataConnection {
     update.where(_.id eqs view.id).and(_.item eqs view.item).modify(_.counter increment 1L).future()
   }
 
-  def getStats(questionId: String,item:String): Future[Option[Stats]] = {
-    select.where(_.id eqs questionId).and(_.item eqs item).one()
+  def getStats(item: String,id:String): Future[Option[Stats]] = {
+    select.where(_.id eqs id).and(_.item eqs item).one()
   }
 
 }

@@ -11,33 +11,30 @@ import scala.concurrent.ExecutionContext.Implicits.global
  * Created by hashcode on 2014/07/17.
  */
 object QuestionService {
-  val repo = QuestionRespository
-  val statsRepo = StatsRepository
-  val answerrepo = ResponseRepository
 
 //  def getQuestionBeforedate(date:Date) ={
 //    repo.geAllQuestions map( questions=> questions.filter(_.date.before(date)))
 //  }
 
   def save(question:Question) = {
-    repo.save(question)
+    QuestionRespository.save(question)
   }
 
-  def getQuestionById(id:String) ={
-    repo.getRoleById(id)
+  def getQuestionById(zone:String, id:String) ={
+    QuestionRespository.getQuestionById(zone,id)
   }
 
-  def getAllQuestion = {
-    repo.geAllQuestions
+  def getQuestionsByZone (zone:String) = {
+    QuestionRespository.geQuestionsByZone(zone)
   }
 
   def countStat(view:Stats) = {
-    statsRepo.statcount(view)
+    StatsRepository.statcount(view)
 
   }
 
   def getStats(id:String,item:String) = {
-    statsRepo.getStats(id,item)
+    StatsRepository.getStats(id,item)
   }
 
 

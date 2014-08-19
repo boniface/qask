@@ -15,7 +15,7 @@ libraryDependencies ++= Seq(
 
 resolvers += "newzly External snapshots" at "http://newzly-artifactory.elasticbeanstalk.com/ext-release-local"
 
-libraryDependencies += "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.3"
+libraryDependencies += "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.4"
 
 libraryDependencies += "com.websudos"  %% "phantom-dsl"  % "1.0.7"
 

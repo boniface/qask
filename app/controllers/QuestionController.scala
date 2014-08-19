@@ -1,6 +1,5 @@
 package controllers
 
-import java.util.UUID
 
 import domain.Stats
 import models.QuestionModel
@@ -15,44 +14,42 @@ import scala.concurrent.ExecutionContext.Implicits.global
  */
 object QuestionController extends Controller {
 
-  def create = Action.async(parse.json) {
+  def create(zone:String) = Action.async(parse.json) {
     request =>
       val input = request.body
       val questionModel = Json.fromJson[QuestionModel](input).get
-      val question = questionModel.getDomain()
+      val quest = questionModel.getDomain()
+      val question = quest.copy(zone=zone)
       val results = QuestionService.save(question)
       results.map(result =>
         Ok(Json.toJson(question))
       )
   }
-  def findById(id: String) = Action.async {
+  def getQuestionById(zone:String,id: String) = Action.async {
     request =>
-      val question = QuestionService.getQuestionById(id)
+      val question = QuestionService.getQuestionById(zone,id)
       question map(q => q match {
-        case Some(q) =>QuestionService.countStat(Stats(id,request.domain,1L))
+        case Some(q) =>QuestionService.countStat(Stats(id,"question",1L))
         case None => None
       })
       question map (quest =>
         Ok(Json.toJson(quest)))
   }
-  //
-  def findAll() = Action.async {
+
+  def findAll(zone:String) = Action.async {
     request =>
-      val questions = QuestionService.getAllQuestion
+      val questions = QuestionService.getQuestionsByZone(zone)
       questions map (quests => {
         Ok(Json.toJson(quests))
       })
   }
 
-  def getStats(questionId:String)=Action.async{
+  def getStats(questionId:String,item:String)=Action.async{
     request =>
-     val stats = QuestionService.getStats(questionId,request.domain)
+     val stats = QuestionService.getStats(questionId,item)
      stats map (stat => Ok(Json.toJson(stat match {
-       case Some(view)=>view.counter
+       case Some(stat)=>stat.counter
        case None => 0})))
-
   }
-
- 
 }
 

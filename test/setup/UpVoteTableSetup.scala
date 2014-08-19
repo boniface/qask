@@ -1,7 +1,7 @@
 package setup
 
 import org.scalatest.{GivenWhenThen, FeatureSpec}
-import respository.{CommentRepository, ResponseRepository, QuestionRespository, UpVoteRepository}
+import respository._
 
 /**
  * Created by hashcode on 2014/07/07.

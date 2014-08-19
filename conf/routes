@@ -5,7 +5,8 @@
 OPTIONS        /*path                             controllers.Application.options(path)
 # Home page
 GET            /                                  controllers.Application.index
-GET            /test/:zone/:id                              controllers.Application.test(zone:String,id:String)
+GET            /test/:zone/:id                    controllers.Application.test(zone:String,id:String)
+GET            /dbsetup                           controllers.Application.dbsetup
 
 # Roles
 POST           /api/role                          controllers.RoleController.create
@@ -18,10 +19,10 @@ GET            /api/vote/downvote/:id             controllers.VoteController.dow
 GET            /api/vote/votes/:id                controllers.VoteController.votes(id:String)
 
 # Questions
-POST           /api/question                      controllers.QuestionController.create
-GET            /api/question/get/:id              controllers.QuestionController.findById(id:String)
-GET            /api/question/questions            controllers.QuestionController.findAll()
-GET            /api/question/stats/:id            controllers.QuestionController.getStats(id:String)
+POST           /api/question/:zone                controllers.QuestionController.create(zone)
+GET            /api/question/get/:zone/:id        controllers.QuestionController.getQuestionById(zone:String,id:String)
+GET            /api/questions/:zone               controllers.QuestionController.findAll(zone:String)
+GET            /api/question/stats/:item/:id      controllers.QuestionController.getStats(item:String,id:String)
 
 # Comments
 POST           /api/comment                       controllers.CommentController.create

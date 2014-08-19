@@ -22,7 +22,7 @@ class AnswerTest extends FeatureSpec with GivenWhenThen {
       Given(" The Stab to the Database")
       val repo = ResponseRepository
       val comment = Comment("100","1",new DateTime,"This is a Coment","bojovi@jkd.com","KAYADS","123.4.5.67")
-      val answer = Response("123","102",new DateTime,"The Response is very Long I think ","bsadas@kabs","chanda","123.4",Set[Comment]())
+
 //      repo.save(answer)
 //      repo.postComment("123","100",comment)
 
@@ -33,9 +33,7 @@ class AnswerTest extends FeatureSpec with GivenWhenThen {
 
 
 
-         for (a<-ans){
-           println(a.comments)
-         }
+
 
     }
 

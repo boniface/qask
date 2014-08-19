@@ -13,14 +13,9 @@ class ViewsTest  extends FeatureSpec with GivenWhenThen {
   feature ("Count Views"){
     info(" When The Count is Issued")
     scenario(" "){
-      val view = Stats("2",1)
 
-      val rep = StatsRepository
-      rep.statcount(view)
 
-      val views = Await.result(rep.getStats("2"), 500 millis)
 
-      views map(view => println("The Views are ", view.counter))
 
 
 

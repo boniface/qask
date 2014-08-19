@@ -18,9 +18,10 @@ import scala.concurrent.Future
  */
 class QuestionRespository extends CassandraTable[QuestionRespository, Question] {
 
-  object id extends StringColumn(this) with PartitionKey[String]
+  object id extends StringColumn(this) with PrimaryKey[String]
 
-  object zone extends StringColumn(this) with PrimaryKey[String]
+  object zone extends StringColumn(this) with PartitionKey[String]
+
   object date extends DateColumn(this) with PrimaryKey[Date]
 
   object title extends StringColumn(this)
@@ -53,12 +54,12 @@ object QuestionRespository extends QuestionRespository with DataConnection {
       .future()
   }
 
-  def geAllQuestions: Future[Seq[Question]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def geQuestionsByZone(zone:String): Future[Seq[Question]] = {
+    select.where(_.zone eqs zone).fetchEnumerator() run Iteratee.collect()
   }
 
-  def getRoleById(id: String): Future[Option[Question]] = {
-    select.where(_.id eqs id).one()
+  def getQuestionById(zone:String,id: String): Future[Option[Question]] = {
+    select.where(_.zone eqs zone).and(_.id eqs id).one()
   }
 
 
