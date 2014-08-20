@@ -5,9 +5,8 @@ import com.websudos.phantom.Implicits._
 import com.websudos.phantom.iteratee.Iteratee
 import com.websudos.phantom.keys.PrimaryKey
 import conf.DataConnection
-import domain.{Response, Comment}
+import domain.Response
 import net.liftweb.json._
-
 
 import scala.concurrent.Future
 
@@ -17,13 +16,15 @@ import scala.concurrent.Future
 sealed class ResponseRepository extends CassandraTable[ResponseRepository, Response] {
   implicit val formats = DefaultFormats
 
-  object questionId extends StringColumn(this) with PartitionKey[String]
+  object subjectId extends StringColumn(this) with PartitionKey[String]
 
   object id extends StringColumn(this) with PrimaryKey[String]
 
+  object zone extends StringColumn(this) with PrimaryKey[String]
+
   object date extends DateTimeColumn(this)
 
-  object answer extends StringColumn(this)
+  object response extends StringColumn(this)
 
   object email extends StringColumn(this)
 
@@ -31,23 +32,24 @@ sealed class ResponseRepository extends CassandraTable[ResponseRepository, Respo
 
   object ipaddress extends StringColumn(this)
 
-//  object comments extends JsonSetColumn[ResponseRepository, Response, Comment](this) {
-//    override def fromJson(obj: String): Comment = {
-//      JsonParser.parse(obj).extract[Comment]
-//    }
-//
-//    override def toJson(obj: Comment): String = {
-//      pretty(render(Extraction.decompose(obj)))
-//    }
-//  }
+  //  object comments extends JsonSetColumn[ResponseRepository, Response, Comment](this) {
+  //    override def fromJson(obj: String): Comment = {
+  //      JsonParser.parse(obj).extract[Comment]
+  //    }
+  //
+  //    override def toJson(obj: Comment): String = {
+  //      pretty(render(Extraction.decompose(obj)))
+  //    }
+  //  }
 
 
   override def fromRow(row: Row): Response = {
 
-    Response(questionId(row),
+    Response(subjectId(row),
       id(row),
+      zone(row),
       date(row),
-      answer(row),
+      response(row),
       email(row),
       screenName(row),
       ipaddress(row))
@@ -57,20 +59,26 @@ sealed class ResponseRepository extends CassandraTable[ResponseRepository, Respo
 object ResponseRepository extends ResponseRepository with DataConnection {
   override lazy val tableName = "answers"
 
-  def save(answer: Response): Future[ResultSet] = {
+  def save(response: Response): Future[ResultSet] = {
     insert
-      .value(_.questionId, answer.questionId)
-      .value(_.id, answer.id)
-      .value(_.date, answer.date)
-      .value(_.email, answer.email)
-      .value(_.screenName, answer.screenName)
-      .value(_.answer, answer.answer)
-      .value(_.ipaddress, answer.ipaddress)
+      .value(_.subjectId, response.subjectId)
+      .value(_.id, response.id)
+      .value(_.date, response.date)
+      .value(_.email, response.email)
+      .value(_.zone, response.zone)
+      .value(_.screenName, response.screenName)
+      .value(_.response, response.response)
+      .value(_.ipaddress, response.ipaddress)
       .future()
   }
 
-  def getAnswersByQuestionId(questionId: String): Future[Seq[Response]] = {
-    select.where(_.questionId eqs questionId).fetchEnumerator() run Iteratee.collect()
+  def getResponseBySubjectId(subjectId: String, zone:String): Future[Seq[Response]] = {
+    select.where(_.subjectId eqs subjectId).and(_.zone eqs zone).fetchEnumerator() run Iteratee.collect()
   }
 
+  def updateResponse(subjectId: String, response:String):Future[ResultSet] = {
+    update.where(_.id eqs subjectId)
+      .modify(_.response setTo response )
+      .future()
+  }
 }

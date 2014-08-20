@@ -8,10 +8,11 @@ import respository.CommentRepository
  * Created by hashcode on 2014/07/09.
  */
 case class Response(
-                   questionId: String,
+                   subjectId: String,
                    id: String,
+                   zone:String,
                    date: DateTime,
-                   answer: String,
+                   response: String,
                    email: String,
                    screenName: String,
                    ipaddress: String

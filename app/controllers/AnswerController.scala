@@ -1,11 +1,12 @@
 package controllers
 
+import conf.Util
 import domain.Stats
 import models.AnswerModel
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import respository.StatsRepository
-import services.AnswerService
+import services.ResponseService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -15,14 +16,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
  */
 object AnswerController extends Controller {
 
-  def create = Action.async(parse.json) {
+  def create(zone:String) = Action.async(parse.json) {
     request =>
       val input = request.body
       val answerModel = Json.fromJson[AnswerModel](input).get
       val ans = answerModel.getDomain()
       val answer = ans.copy(ipaddress = request.remoteAddress)
-      val results = AnswerService.save(answer)
-      AnswerService.countStat(Stats(ans.id,request.domain,1L))
+      val results = ResponseService.save(answer)
+      ResponseService.countStat(Stats(ans.id,Util.RESPONSE.toString,1L))
       results.map(result =>
         Ok(Json.toJson(answer))
       )
@@ -30,7 +31,7 @@ object AnswerController extends Controller {
 
   def findAnswersByQuestionId(id: String) = Action.async {
     request =>
-      val answers = AnswerService.getAnswersByQuestion(id)
+      val answers = ResponseService.getResponseById(id)
       answers map (quest => {
         Ok(Json.toJson(quest))
       })

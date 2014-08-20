@@ -34,7 +34,7 @@ object Application extends Controller {
       fr <- FeedsRespository.createTable()
       lr <- LinksRespository.createTable()
       pr <- PostRespository.createTable()
-      ps <- PostStatusRepository.createTable()
+      ps <- StatusRepository.createTable()
       qr <- QuestionRespository.createTable()
       rp <- RawPostRespository.createTable()
       rr <- ResponseRepository.createTable()
