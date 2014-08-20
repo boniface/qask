@@ -10,16 +10,16 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2014/07/23.
  */
-case class AnswerModel( questionId: String,
+case class ResponseModel( questionId: String,
                         answer: String,
                         email: String,
                         screenName: String){
-  def getDomain(): Response = AnswerModel.domain(this)
+  def getDomain(): Response = ResponseModel.domain(this)
 }
 
-object AnswerModel{
-  implicit val ansFmt = Json.format[AnswerModel]
-  def domain(model: AnswerModel) = {
+object ResponseModel{
+  implicit val ansFmt = Json.format[ResponseModel]
+  def domain(model: ResponseModel) = {
     val comments = Set[Comment]()
     Response(
       model.questionId,

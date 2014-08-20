@@ -14,7 +14,7 @@ object CommentService {
   }
 
   def getComments(answerId:String) = {
-    repo.getCommentsByAnswerId(answerId)
+    repo.getCommentsByResponseId(answerId)
   }
 
 }

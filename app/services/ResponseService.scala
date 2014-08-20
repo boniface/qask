@@ -28,6 +28,7 @@ object ResponseService {
   
   def getAPrrovedResponse(subjectId: String, zone:String) = {
 
+
   }
 
   def getPendingResponses(subjectId: String, zone:String)= {

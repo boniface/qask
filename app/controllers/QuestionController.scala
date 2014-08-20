@@ -1,6 +1,7 @@
 package controllers
 
 
+import conf.Util
 import domain.Stats
 import models.QuestionModel
 import play.api.libs.json.Json
@@ -29,7 +30,7 @@ object QuestionController extends Controller {
     request =>
       val question = QuestionService.getQuestionById(zone,id)
       question map(q => q match {
-        case Some(q) =>QuestionService.countStat(Stats(id,"question",1L))
+        case Some(q) =>QuestionService.countStat(Stats(id,Util.QUESTION.toString,1L))
         case None => None
       })
       question map (quest =>

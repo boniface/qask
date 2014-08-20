@@ -16,9 +16,11 @@ import scala.concurrent.Future
  */
 sealed class CommentRepository extends CassandraTable[CommentRepository, Comment] {
 
-  object answerId extends StringColumn(this) with PartitionKey[String]
+  object responseId extends StringColumn(this) with PartitionKey[String]
 
   object id extends StringColumn(this) with PrimaryKey[String]
+  
+  object zone extends StringColumn(this) with PrimaryKey[String]
 
   object date extends DateTimeColumn(this)
 
@@ -31,7 +33,7 @@ sealed class CommentRepository extends CassandraTable[CommentRepository, Comment
   object ipaddress extends StringColumn(this)
 
   override def fromRow(row: Row): Comment = {
-    Comment(answerId(row), id(row), date(row), comment(row), email(row), screenName(row), ipaddress(row))
+    Comment(responseId(row), id(row),zone(row), date(row), comment(row), email(row), screenName(row), ipaddress(row))
   }
 }
 
@@ -40,7 +42,8 @@ object CommentRepository extends CommentRepository with DataConnection {
 
   def save(comment: Comment): Future[ResultSet] = {
     insert
-      .value(_.answerId, comment.answerId)
+      .value(_.responseId, comment.responseId)
+      .value(_.zone, comment.zone)
       .value(_.id, comment.id)
       .value(_.date, comment.date)
       .value(_.screenName, comment.screenName)
@@ -50,8 +53,8 @@ object CommentRepository extends CommentRepository with DataConnection {
       .future()
   }
 
-  def getCommentsByAnswerId(answerId: String): Future[Seq[Comment]] = {
-    select.where(_.answerId eqs answerId).fetchEnumerator() run Iteratee.collect()
+  def getCommentsByResponseId(responseId: String, zone:String): Future[Seq[Comment]] = {
+    select.where(_.responseId eqs responseId).and(_.zone eqs zone).fetchEnumerator() run Iteratee.collect()
   }
 
 }
