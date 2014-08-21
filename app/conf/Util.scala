@@ -16,5 +16,5 @@ object Util extends Enumeration {
     }
   }
 
-  val SPAM, PENDING, APPROVED, QUESTION,RESPONSE, POST = Value
+  val SPAM, PENDING, APPROVED, QUESTION,RESPONSE,FEED, POST = Value
 }

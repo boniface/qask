@@ -23,16 +23,15 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2014/07/11.
  */
-case class Feeds(
+case class Feed( zone:String,
                   id: String,
-                  zone:String,
                   feedLink: String,
                   feedType: String,
                   feedSite: String,
                   siteLogo: String
                   )
 
-object Feeds {
-  implicit val feedFmt = Json.format[Feeds]
+object Feed {
+  implicit val feedFmt = Json.format[Feed]
 
 }

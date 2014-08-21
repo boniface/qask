@@ -19,7 +19,7 @@ package models
 import java.util.UUID
 
 import conf.Util
-import domain.Feeds
+import domain.Feed
 import play.api.libs.json.Json
 
 /**
@@ -30,13 +30,13 @@ case class FeedsModel(
                        feedType: String,
                        feedSite: String,
                        siteLogo: String) {
-  def getDomain(): Feeds = FeedsModel.domain(this)
+  def getDomain(): Feed = FeedsModel.domain(this)
 }
 
 object FeedsModel {
   implicit val roleFmt = Json.format[FeedsModel]
 
   def domain(model: FeedsModel) = {
-    Feeds(Util.md5Hash(UUID.randomUUID().toString()),"", model.feedLink, model.feedType, model.feedSite, model.siteLogo)
+    Feed(Util.md5Hash(UUID.randomUUID().toString()),"", model.feedLink, model.feedType, model.feedSite, model.siteLogo)
   }
 }

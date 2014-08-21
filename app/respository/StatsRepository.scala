@@ -34,8 +34,12 @@ sealed class StatsRepository extends CassandraTable[StatsRepository, Stats] {
 object StatsRepository extends StatsRepository with DataConnection {
   override lazy val tableName = "stats"
 
-  def statcount(view: Stats): Future[ResultSet] = {
-    update.where(_.id eqs view.id).and(_.item eqs view.item).modify(_.counter increment 1L).future()
+  def statIncrement(stat: Stats): Future[ResultSet] = {
+    update.where(_.id eqs stat.id).and(_.item eqs stat.item).modify(_.counter increment 1L).future()
+  }
+
+  def statDecrement(stat: Stats): Future[ResultSet] = {
+    update.where(_.id eqs stat.id).and(_.item eqs stat.item).modify(_.counter decrement  1L).future()
   }
 
   def getStats(item: String,id:String): Future[Option[Stats]] = {

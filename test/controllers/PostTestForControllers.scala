@@ -36,7 +36,7 @@ class PostTestForControllers extends Specification {
 
 
     //    "Should Delete" in new WithApplication {
-    //      val Some(home)= route(FakeRequest(GET, "/api/role/delete/a4b522d8-62bf-45ef-b22f-cb0082158ec1"))
+    //      val Some(home)= route(FakeRequest(GET, "/api/role/deleteFeed/a4b522d8-62bf-45ef-b22f-cb0082158ec1"))
     //      status(home) must equalTo(OK)
     //
     //    }

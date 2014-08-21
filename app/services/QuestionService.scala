@@ -29,7 +29,7 @@ object QuestionService {
   }
 
   def countStat(view:Stats) = {
-    StatsRepository.statcount(view)
+    StatsRepository.statIncrement(view)
 
   }
 

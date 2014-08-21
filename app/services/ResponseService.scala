@@ -23,7 +23,7 @@ object ResponseService {
   }
 
   def countStat(stat:Stats)={
-    StatsRepository.statcount(stat)
+    StatsRepository.statIncrement(stat)
   }
   
   def getAPrrovedResponse(subjectId: String, zone:String) = {

@@ -16,42 +16,28 @@
 
 package services
 
-import domain.Feeds
+import domain.Feed
 import respository.FeedsRespository
 
 /**
  * Created by hashcode on 2014/07/12.
  */
-object Feedsservice {
+object FeedsService {
 
-
-  def save(feed: Feeds) = {
+  def save(feed: Feed) = {
     FeedsRespository.save(feed)
   }
-
-  def update(feed: Feeds) = {
-    FeedsRespository.updateFeed(feed.id, feed)
+  def getFeedById(zone:String,id: String) = {
+    FeedsRespository.getFeedById(zone,id)
   }
-
-  def delete(id: String) = {
-    FeedsRespository.deleteFeedById(id)
+  def getFeedsByZone(zone:String) = {
+    FeedsRespository.getFeedsByZone(zone)
   }
-
-  def getFeedById(id: String) = {
-    FeedsRespository.getFeedById(id)
+  def getFeeds = {
+    FeedsRespository.getFeeds
   }
-
-  def getAllFeeds = {
-    val feeds = FeedsRespository.getAllFeeds
-    feeds
-  }
-
-  def getFeedsbySite(siteId: String) = {
-    val feeds = FeedsRespository.getAllFeeds
-
-    feeds
-
-    //    feeds map()
+  def delete(zone:String,id: String) = {
+    FeedsRespository.deleteFeed(zone,id)
   }
 
 }
