@@ -57,6 +57,8 @@ sealed class ResponseRepository extends CassandraTable[ResponseRepository, Respo
 }
 
 object ResponseRepository extends ResponseRepository with DataConnection {
+
+
   override lazy val tableName = "answers"
 
   def save(response: Response): Future[ResultSet] = {
@@ -80,5 +82,9 @@ object ResponseRepository extends ResponseRepository with DataConnection {
     update.where(_.id eqs subjectId)
       .modify(_.response setTo response )
       .future()
+  }
+
+  def deleteResponse(id: String):Future[ResultSet] = {
+    delete.where(_.id eqs id).future()
   }
 }

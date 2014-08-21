@@ -26,11 +26,11 @@ GET            /api/question/stats/:item/:id        controllers.QuestionControll
 
 # Comments
 POST           /api/comment                         controllers.CommentController.create
-GET            /api/comments/get/:answerid          controllers.CommentController.findCommentsByAnswerId(answerid:String)
+GET            /api/comments/:zone/:responseId      controllers.CommentController.getCommentsByResponseId(zone,responseId)
 
 # Answers
-POST           /api/response/:zone                  controllers.ResponseController.create(zone:string)
-POST           /api/respnose/update/:id/:resp       controllers.ResponseController.updateResponse(id:String,resp:String)
+POST           /api/response/:zone                  controllers.ResponseController.create(zone)
+POST           /api/respnose/update/:id/:resp       controllers.ResponseController.updateResponse(id,resp)
 GET            /api/response/get/:zone/:id          controllers.ResponseController.getResponsesById(zone:String,id:String)
 
 

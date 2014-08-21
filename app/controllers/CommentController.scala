@@ -25,9 +25,9 @@ object CommentController extends Controller{
       )
   }
 
-  def findCommentsByAnswerId(id: String) = Action.async {
+  def getCommentsByResponseId(responseId:String,zone: String) = Action.async {
     request =>
-      val comments = CommentService.getComments(id)
+      val comments = CommentService.getCommentsByResponse(responseId,zone)
       comments map (quest => Ok(Json.toJson(quest)))
   }
 

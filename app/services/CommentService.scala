@@ -7,14 +7,11 @@ import respository.{CommentRepository, QuestionRespository}
  * Created by hashcode on 2014/07/23.
  */
 object CommentService {
-  val repo = CommentRepository
 
   def save (comment:Comment) = {
-    repo.save(comment)
+    CommentRepository.save(comment)
   }
-
-  def getComments(answerId:String) = {
-    repo.getCommentsByResponseId(answerId)
+  def getCommentsByResponse(subjectId:String,zone:String) = {
+    CommentRepository.getCommentsByResponseId(subjectId,zone)
   }
-
 }

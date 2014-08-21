@@ -27,24 +27,27 @@ object ResponseService {
   }
   
   def getAPrrovedResponse(subjectId: String, zone:String) = {
+    getResponseById(subjectId,zone)
 
 
   }
 
   def getPendingResponses(subjectId: String, zone:String)= {
-
+    getResponseById(subjectId,zone)
   }
 
   def getSpamResponses(subjectId: String, zone:String)= {
-
+    getResponseById(subjectId,zone)
   }
 
   def deleteResponse(subjectId: String)= {
-
+    ResponseRepository.deleteResponse(subjectId)
   }
 
   def changeResponseStatus(subjectId: String, status:String)= {
 
+
   }
+
 
 }

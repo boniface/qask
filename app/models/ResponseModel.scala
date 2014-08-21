@@ -10,20 +10,22 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2014/07/23.
  */
-case class ResponseModel( questionId: String,
-                        answer: String,
-                        email: String,
-                        screenName: String){
+case class ResponseModel(questionId: String,
+                         answer: String,
+                         email: String,
+                         screenName: String) {
   def getDomain(): Response = ResponseModel.domain(this)
 }
 
-object ResponseModel{
+object ResponseModel {
   implicit val ansFmt = Json.format[ResponseModel]
+
   def domain(model: ResponseModel) = {
     val comments = Set[Comment]()
     Response(
       model.questionId,
-      Util.md5Hash(UUID.randomUUID().toString())
+      Util.md5Hash(UUID.randomUUID().toString()),
+      "zone"
       , new DateTime,
       model.answer,
       model.email,
