@@ -21,14 +21,14 @@ class AnswerTest extends FeatureSpec with GivenWhenThen {
 
       Given(" The Stab to the Database")
       val repo = ResponseRepository
-      val comment = Comment("100","1",new DateTime,"This is a Coment","bojovi@jkd.com","KAYADS","123.4.5.67")
+//      val comment = Comment("100","1",new DateTime,"This is a Coment","bojovi@jkd.com","KAYADS","123.4.5.67")
 
 //      repo.save(response)
 //      repo.postComment("123","100",comment)
 
-      val answers = repo.getResponseBySubjectId("27090ba50639e5a6fc127140cac9fd78")
+//      val answers = repo.getResponseBySubjectId("27090ba50639e5a6fc127140cac9fd78")
 
-      val ans = Await.result(repo.getResponseBySubjectId("27090ba50639e5a6fc127140cac9fd78"), 5000 millis)
+//      val ans = Await.result(repo.getResponseBySubjectId("27090ba50639e5a6fc127140cac9fd78"), 5000 millis)
 
 
 

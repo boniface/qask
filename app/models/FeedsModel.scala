@@ -37,6 +37,6 @@ object FeedsModel {
   implicit val roleFmt = Json.format[FeedsModel]
 
   def domain(model: FeedsModel) = {
-    Feed(Util.md5Hash(UUID.randomUUID().toString()),"", model.feedLink, model.feedType, model.feedSite, model.siteLogo)
+    Feed("zone",Util.md5Hash(UUID.randomUUID().toString()), model.feedLink, model.feedType, model.feedSite, model.siteLogo)
   }
 }

@@ -16,22 +16,26 @@
 
 package domain
 
-import org.joda.time.DateTime
+import java.util.Date
+
 import play.api.libs.json.Json
 
 /**
  * Created by hashcode on 2014/07/11.
  */
 case class Post(
-                 linkhash: String,
                  zone:String,
+                 linkhash: String,
                  domain: String,
-                 date: DateTime,
+                 date: Date,
                  title: String,
                  article: String,
                  metakeywords: String,
                  metaDescription: String,
-                 link: String
+                 link: String,
+                 imageUrl:String,
+                 seo:String,
+                 imagepath:String
                  )
 
 object Post {

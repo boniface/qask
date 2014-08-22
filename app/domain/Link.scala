@@ -16,20 +16,20 @@
 
 package domain
 
-import org.joda.time.DateTime
+import java.util.Date
+
 import play.api.libs.json.Json
 
 /**
  * Created by hashcode on 2014/07/11.
  */
-case class Links(
+case class Link(  zone:String,
                   linkhash: String,
-                  zone:String,
-                  site: String,
-                  url: String,
-                  date: DateTime
+                  datePublished: Date,
+                  url:String,
+                  site: String
                   )
 
-object Links {
-  implicit val linkFmt = Json.format[Links]
+object Link {
+  implicit val linkFmt = Json.format[Link]
 }

@@ -19,6 +19,7 @@ package controllers
 
 
 import models.FeedsModel
+import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.FeedsService
@@ -31,21 +32,25 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object FeedsController extends Controller {
 
   def create(zone:String) = Action.async(parse.json) {
+
     request =>
       val input = request.body
       val feedsModel = Json.fromJson[FeedsModel](input).get
+
       val f = feedsModel.getDomain()
       val feed = f.copy(zone=zone)
       val results = FeedsService.save(feed)
       results.map(result =>
-        Ok(Json.toJson(result.isExhausted)))
+        Ok(Json.toJson(feed)))
   }
 
   def update(zone:String,feedId:String) = Action.async(parse.json) {
+    Logger.info("This has been Called ")
     request =>
       val input = request.body
       val feedsModel = Json.fromJson[FeedsModel](input).get
       val f = feedsModel.getDomain()
+      Logger.info("FEED CREATED  has been Called ")
       val feed = f.copy(zone=zone,id = feedId)
       val results = FeedsService.save(feed)
       results.map(result =>
