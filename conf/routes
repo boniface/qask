@@ -2,46 +2,57 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 #CORS Path
-OPTIONS        /*path                                 controllers.Application.options(path)
+OPTIONS        /*path                                     controllers.Application.options(path)
 # Home page
-GET            /                                      controllers.Application.index
-GET            /test/:zone/:id                        controllers.Application.test(zone:String,id:String)
-GET            /dbsetup                               controllers.Application.dbsetup
+GET            /                                          controllers.Application.index
+GET            /test/:zone/:id                            controllers.Application.test(zone:String,id:String)
+GET            /dbsetup                                   controllers.Application.dbsetup
 
 # Roles
-POST           /api/role                              controllers.RoleController.create
-GET            /api/role/get/:id                      controllers.RoleController.findById(id:String)
-GET            /api/role/roles                        controllers.RoleController.findAll()
+POST           /api/role                                  controllers.RoleController.create
+GET            /api/role/get/:id                          controllers.RoleController.findById(id:String)
+GET            /api/role/roles                            controllers.RoleController.findAll()
 
 # Votes
-GET            /api/vote/upvote/:id                   controllers.VoteController.upvote(id:String)
-GET            /api/vote/downvote/:id                 controllers.VoteController.downvote(id:String)
-GET            /api/vote/votes/:id                    controllers.VoteController.votes(id:String)
+GET            /api/vote/upvote/:id                       controllers.VoteController.upvote(id:String)
+GET            /api/vote/downvote/:id                     controllers.VoteController.downvote(id:String)
+GET            /api/vote/votes/:id                        controllers.VoteController.votes(id:String)
 
 # Questions
-POST           /api/question/:zone                    controllers.QuestionController.create(zone)
-GET            /api/question/get/:zone/:id            controllers.QuestionController.getQuestionById(zone:String,id:String)
-GET            /api/questions/:zone                   controllers.QuestionController.findAll(zone:String)
-GET            /api/question/stats/:item/:id          controllers.QuestionController.getStats(item:String,id:String)
+POST           /api/question/:zone                        controllers.QuestionController.create(zone)
+GET            /api/question/get/:zone/:id                controllers.QuestionController.getQuestionById(zone:String,id:String)
+GET            /api/questions/:zone                       controllers.QuestionController.findAll(zone:String)
+
 
 # Comments
-POST           /api/comment                           controllers.CommentController.create
-GET            /api/comments/:zone/:responseId        controllers.CommentController.getCommentsByResponseId(zone,responseId)
+POST           /api/comment                               controllers.CommentController.create
+GET            /api/comments/:zone/:responseId            controllers.CommentController.getCommentsByResponseId(zone,responseId)
 
 # Responses
-POST           /api/response/:zone                    controllers.ResponseController.create(zone)
-PUT            /api/respnose/update/:id/:resp         controllers.ResponseController.updateResponse(id,resp)
-GET            /api/response/get/:zone/:id            controllers.ResponseController.getResponsesById(zone:String,id:String)
+POST           /api/response/:zone                        controllers.ResponseController.create(zone)
+PUT            /api/respnose/update/:id/:resp             controllers.ResponseController.updateResponse(id,resp)
+GET            /api/response/get/:zone/:id                controllers.ResponseController.getResponsesById(zone:String,id:String)
 
 # Feeds
 
-POST           /api/feed/create/:zone                 controllers.FeedsController.create(zone)
-GET            /api/feed/get/:zone/:id                controllers.FeedsController.getFeedById(zone,id)
-GET            /api/feeds                             controllers.FeedsController.getFeeds
-GET            /api/feeds/:zone                       controllers.FeedsController.getFeedsByZone(zone)
-PUT            /api/feed/update/:zone/:id             controllers.FeedsController.update(zone,id)
-GET         /api/feed/delete/:zone/:id             controllers.FeedsController.deleteFeed(zone,id)
+POST           /api/feed/create/:zone                     controllers.FeedsController.create(zone)
+GET            /api/feed/get/:zone/:id                    controllers.FeedsController.getFeedById(zone,id)
+GET            /api/feeds                                 controllers.FeedsController.getFeeds
+GET            /api/feeds/:zone                           controllers.FeedsController.getFeedsByZone(zone)
+PUT            /api/feed/update/:zone/:id                 controllers.FeedsController.update(zone,id)
+GET            /api/feed/delete/:zone/:id                 controllers.FeedsController.deleteFeed(zone,id)
 
+# Posts
+GET            /api/posts/:zone                           controllers.PostsController.getPostsByZone(zone)
+GET            /api/post/:zone/:id                        controllers.PostsController.getPostById(zone,id)
+GET            /api/posts/:zone/:date                     controllers.PostsController.getZonePostsByDate(zone,date)
+GET            /api/posts/:zone/:start/:end               controllers.PostsController.getZoneCustomPosts(zone,start,end)
+GET            /api/posts/site/:zone/:domain              controllers.PostsController.getSitePosts(zone,domain)
+GET            /api/posts/site/:zone/:domain/:date        controllers.PostsController.getSitePostsByDate(zone,domain,date)
+GET            /api/posts/site/:zone/:domain/:start/:end  controllers.PostsController.getSiteCustomPosts(zone,domain,start,end)
+
+# STATS
+GET           /api/stats/:item/:subjectId                controllers.StatsController.getStats(item,subjectId)
 
 # Map static resources from the /public folder to the /assets URL path
-GET            /assets/*file                          controllers.Assets.at(path="/public", file)
+GET            /assets/*file                              controllers.Assets.at(path="/public", file)

@@ -1,5 +1,9 @@
 package conf
 
+import java.util.Date
+
+import org.joda.time.DateTime
+
 /**
  * Created by hashcode on 2014/08/16.
  */
@@ -16,5 +20,9 @@ object Util extends Enumeration {
     }
   }
 
-  val SPAM, PENDING, APPROVED, QUESTION,RESPONSE,FEED, POST = Value
+  val SPAM, PENDING, APPROVED, QUESTION, RESPONSE, FEED, POST = Value
+
+  def getDate(date: String): Date = {
+    DateTime.parse(date).toDate
+  }
 }

@@ -44,13 +44,5 @@ object QuestionController extends Controller {
         Ok(Json.toJson(quests))
       })
   }
-
-  def getStats(questionId:String,item:String)=Action.async{
-    request =>
-     val stats = QuestionService.getStats(questionId,item)
-     stats map (stat => Ok(Json.toJson(stat match {
-       case Some(stat)=>stat.counter
-       case None => 0})))
-  }
 }
 

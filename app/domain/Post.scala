@@ -35,7 +35,8 @@ case class Post(
                  link: String,
                  imageUrl:String,
                  seo:String,
-                 imagepath:String
+                 imagePath:String,
+                 caption:String
                  )
 
 object Post {

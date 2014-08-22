@@ -16,6 +16,8 @@
 
 package controllers
 
+
+import conf.Util
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.PostsService
@@ -28,11 +30,48 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object PostsController extends Controller {
 
 
-  def getsiteposts(site: String) = Action.async {
+  def getPostsByZone(zone: String) = Action.async {
     request =>
-      val posts = PostsService.getPostsBySite(site)
-      posts map (post => Ok(Json.toJson(post)))
+      PostsService.getPostsByZone(zone) map
+        (posts => Ok(Json.toJson(posts)))
   }
+
+  def getPostById(zone: String, id: String) = Action.async {
+    request =>
+      PostsService.getPostById(zone, id) map
+        (post => Ok(Json.toJson(post)))
+  }
+
+  def getZonePostsByDate(zone: String, date:String) = Action.async {
+    request =>
+      PostsService.getZonePostsByDate(zone, Util.getDate(date)) map
+        (posts => Ok(Json.toJson(posts)))
+  }
+
+  def getSitePosts(zone: String, domain: String) = Action.async {
+    request =>
+      PostsService.getSitePosts(zone, domain) map
+        (posts => Ok(Json.toJson(posts)))
+  }
+
+  def getSitePostsByDate(zone: String, domain: String, date: String) = Action.async {
+    request =>
+      PostsService.getSitePostsByDate(zone, domain, Util.getDate(date)) map
+        (posts => Ok(Json.toJson(posts)))
+  }
+
+  def getZoneCustomPosts(zone: String, start: String, end: String) = Action.async {
+    request =>
+      PostsService.getZoneCustomPosts(zone, Util.getDate(start), Util.getDate(end)) map
+        (posts => Ok(Json.toJson(posts)))
+  }
+
+  def getSiteCustomPosts(zone: String, domain: String, start: String, end: String) = Action.async {
+    request =>
+      PostsService.getSiteCustomPosts(zone, domain, Util.getDate(start), Util.getDate(end)) map
+        (posts => Ok(Json.toJson(posts)))
+  }
+
 
 
 

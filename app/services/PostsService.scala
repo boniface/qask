@@ -16,23 +16,46 @@
 
 package services
 
-import respository.PostRespository
+import java.util.Date
+
+import conf.Util
+import domain.Stats
+import respository.{StatsRepository, PostRespository}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * Created by hashcode on 2014/07/12.
  */
 object PostsService {
-  def repo = PostRespository
 
-  def getPostsBySite(domain: String) = {
-    repo.getAllPosts.map(p => p.filter(_.domain.equals(domain)))
+
+  def getPostsByZone(zone: String) = {
+   PostRespository.getPostsByZone(zone)
   }
 
-  def getPostById(id: String) = {
-
+  def getPostById(zone:String,id: String) = {
+    StatsRepository.statIncrement(Stats(id,Util.POST.toString,1L))
+    PostRespository.getPostById(zone,id)
   }
 
-  def getPostsByDate() = {}
+  def getZonePostsByDate(zone: String, date: Date) = {
+    PostRespository.getZonePostsByDate(zone,date)
+  }
+
+  def getSitePosts(zone: String, domain: String) = {
+    PostRespository.getSitePosts(zone,domain)
+  }
+
+  def getSitePostsByDate(zone: String, domain: String, date: Date) = {
+    PostRespository.getSitePostsByDate(zone,domain,date)
+  }
+
+  def getZoneCustomPosts(zone: String, start: Date, end: Date) = {
+    PostRespository.getZoneCustomPosts(zone,start,end)
+  }
+
+  def getSiteCustomPosts(zone: String, domain: String, start: Date, end: Date)={
+    PostRespository.getSiteCustomPosts(zone,domain,start,end)
+  }
 
 }

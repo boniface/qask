@@ -16,25 +16,26 @@
 
 package respository
 
+import java.util.Date
+
 import com.datastax.driver.core.{ResultSet, Row}
 import com.websudos.phantom.Implicits._
 import com.websudos.phantom.iteratee.Iteratee
 import conf.DataConnection
 import domain.Post
-import org.joda.time.DateTime
 
 import scala.concurrent.Future
 
 
 class PostRespository extends CassandraTable[PostRespository, Post] {
 
-  object linkhash extends StringColumn(this) with PartitionKey[String]
+  object zone extends StringColumn(this) with PartitionKey[String]
 
-  object zone extends StringColumn(this) with PrimaryKey[String]
+  object linkhash extends StringColumn(this) with PrimaryKey[String]
 
   object domain extends StringColumn(this) with PrimaryKey[String]
 
-  object date extends DateTimeColumn(this) with PrimaryKey[DateTime]
+  object date extends DateColumn(this) with PrimaryKey[Date]
 
   object title extends StringColumn(this)
 
@@ -46,17 +47,29 @@ class PostRespository extends CassandraTable[PostRespository, Post] {
 
   object link extends StringColumn(this)
 
+  object imageUrl extends StringColumn(this)
+
+  object seo extends StringColumn(this)
+
+  object imagePath extends StringColumn(this)
+
+  object caption extends StringColumn(this)
+
   override def fromRow(row: Row): Post = {
     Post(
-      linkhash(row),
       zone(row),
+      linkhash(row),
       domain(row),
       date(row),
       title(row),
       article(row),
       metakeywords(row),
       metaDescription(row),
-      link(row)
+      link(row),
+      imageUrl(row),
+      seo(row),
+      imagePath(row),
+      caption(row)
     )
   }
 }
@@ -75,19 +88,55 @@ object PostRespository extends PostRespository with DataConnection {
       .value(_.metaDescription, post.metaDescription)
       .value(_.link, post.link)
       .value(_.zone, post.zone)
+      .value(_.imageUrl, post.imageUrl)
+      .value(_.seo, post.seo)
+      .value(_.imagePath, post.imagePath)
+      .value(_.caption, post.caption)
       .future()
   }
 
-  def getPostById(linkhash: String): Future[Option[Post]] = {
-    select.where(_.linkhash eqs linkhash).one();
+  def getPostsByZone(zone: String) = {
+    select.where(_.zone eqs zone)
+      .fetchEnumerator() run Iteratee.collect()
   }
 
-  def getAllPosts: Future[Seq[Post]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+  def getPostById(zone: String, linkhash: String): Future[Option[Post]] = {
+    select.where(_.zone eqs zone)
+      .and(_.linkhash eqs linkhash).one()
   }
 
-  def getPostsBySite(linkhash: String, domain: String): Future[Seq[Post]] = {
-    select.where(_.linkhash eqs linkhash).and(_.domain eqs domain).fetchEnumerator() run Iteratee.collect()
+  def getZonePostsByDate(zone: String, date: Date): Future[Seq[Post]] = {
+    select.where(_.zone eqs zone)
+      .and(_.date gte date)
+      .fetchEnumerator() run Iteratee.collect()
+  }
+
+  def getSitePosts(zone: String, domain: String): Future[Seq[Post]] = {
+    select.where(_.zone eqs zone)
+      .and(_.domain eqs domain)
+      .fetchEnumerator() run Iteratee.collect()
+  }
+
+  def getSitePostsByDate(zone: String, domain: String, date: Date): Future[Seq[Post]] = {
+    select.where(_.zone eqs zone)
+      .and(_.domain eqs domain)
+      .and(_.date gte date)
+      .fetchEnumerator() run Iteratee.collect()
+  }
+
+  def getZoneCustomPosts(zone: String, start: Date, end: Date): Future[Seq[Post]] = {
+    select.where(_.zone eqs zone)
+      .and(_.date lt start)
+      .and(_.date gte end)
+      .fetchEnumerator() run Iteratee.collect()
+  }
+
+  def getSiteCustomPosts(zone: String, domain: String, start: Date, end: Date): Future[Seq[Post]] = {
+    select.where(_.zone eqs zone)
+      .and(_.domain eqs domain)
+      .and(_.date lt start)
+      .and(_.date gte end)
+      .fetchEnumerator() run Iteratee.collect()
   }
 
 }
