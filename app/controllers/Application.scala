@@ -43,6 +43,8 @@ object Application extends Controller {
       uv <- UpVoteRepository.createTable()
       zr <- ZoneRespository.createTable()
       st <-StatsRepository.createTable()
+      zp <-ZonePostRespository.createTable()
+      sp <-SitePostRespository.createTable()
     } yield (ab)
     results map (result => {
       Ok(Json.toJson("Done"))

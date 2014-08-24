@@ -27,15 +27,15 @@ import domain.Post
 import scala.concurrent.Future
 
 
-class PostRespository extends CassandraTable[PostRespository, Post] {
+class SitePostRespository extends CassandraTable[SitePostRespository, Post] {
 
-  object zone extends StringColumn(this) with PartitionKey[String]
-
-  object linkhash extends StringColumn(this) with PrimaryKey[String]
-
-  object domain extends StringColumn(this) with PrimaryKey[String]
+  object domain extends StringColumn(this) with PartitionKey[String]
 
   object date extends DateColumn(this) with PrimaryKey[Date]
+
+  object zone extends StringColumn(this)
+
+  object linkhash extends StringColumn(this)
 
   object title extends StringColumn(this)
 
@@ -74,8 +74,8 @@ class PostRespository extends CassandraTable[PostRespository, Post] {
   }
 }
 
-object PostRespository extends PostRespository with DataConnection {
-  override lazy val tableName = "posts"
+object SitePostRespository extends SitePostRespository with DataConnection {
+  override lazy val tableName = "siteposts"
 
   def save(post: Post): Future[ResultSet] = {
     insert
@@ -95,11 +95,23 @@ object PostRespository extends PostRespository with DataConnection {
       .future()
   }
 
-
-  def getPostById(zone: String, linkhash: String): Future[Option[Post]] = {
-    select.where(_.zone eqs zone)
-      .and(_.linkhash eqs linkhash).one()
+  def getSitePosts(domain: String) = {
+    select.where(_.domain eqs domain)
+      .fetchEnumerator() run Iteratee.collect()
   }
 
+  def getSitePostsByDate( domain: String, date: Date): Future[Seq[Post]] = {
+    select.where(_.domain eqs domain)
+      .and(_.date gte date)
+      .fetchEnumerator() run Iteratee.collect()
+  }
+
+  def getSiteCustomPosts(domain: String, start: Date, end: Date): Future[Seq[Post]] = {
+    select.where(_.domain eqs domain)
+      .and(_.domain eqs domain)
+      .and(_.date lt start)
+      .and(_.date gte end)
+      .fetchEnumerator() run Iteratee.collect()
+  }
 
 }

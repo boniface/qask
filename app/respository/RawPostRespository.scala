@@ -16,6 +16,8 @@
 
 package respository
 
+import java.util.Date
+
 import com.datastax.driver.core.{ResultSet, Row}
 import com.websudos.phantom.Implicits._
 import com.websudos.phantom.keys.PrimaryKey
@@ -32,13 +34,16 @@ class RawPostRespository extends CassandraTable[RawPostRespository, RawPost] {
   object linkhash extends StringColumn(this) with PartitionKey[String]
 
   object zone extends StringColumn(this) with PrimaryKey[String]
+  object datePublished extends DateColumn(this) with PrimaryKey[Date]
 
   object rawHtml extends StringColumn(this)
 
 
   override def fromRow(row: Row): RawPost = {
-    RawPost(linkhash(row),
+    RawPost(
       zone(row),
+      linkhash(row),
+      datePublished(row),
       rawHtml(row))
   }
 }
@@ -50,6 +55,7 @@ object RawPostRespository extends RawPostRespository with DataConnection {
     insert
       .value(_.linkhash, rawPost.linkhash)
       .value(_.zone, rawPost.zone)
+      .value(_.datePublished, rawPost.datePublished)
       .value(_.rawHtml, rawPost.rawHtml)
       .future()
   }

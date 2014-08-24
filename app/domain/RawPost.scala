@@ -16,12 +16,15 @@
 
 package domain
 
+import java.util.Date
+
 import play.api.libs.json.Json
 
 /**
  * Created by hashcode on 2014/07/13.
  */
-case class RawPost(linkhash: String, zone:String,rawHtml: String)
+case class RawPost( zone:String,
+                    linkhash: String,datePublished:Date, rawHtml: String)
 
 object RawPost {
   implicit val rawFmt = Json.format[RawPost]

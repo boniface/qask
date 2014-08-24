@@ -20,7 +20,7 @@ import java.util.Date
 
 import conf.Util
 import domain.Stats
-import respository.{StatsRepository, PostRespository}
+import respository.{SitePostRespository, ZonePostRespository, StatsRepository, PostRespository}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
@@ -30,7 +30,7 @@ object PostsService {
 
 
   def getPostsByZone(zone: String) = {
-   PostRespository.getPostsByZone(zone)
+   ZonePostRespository.getPostsByZone(zone)
   }
 
   def getPostById(zone:String,id: String) = {
@@ -39,23 +39,23 @@ object PostsService {
   }
 
   def getZonePostsByDate(zone: String, date: Date) = {
-    PostRespository.getZonePostsByDate(zone,date)
+    ZonePostRespository.getZonePostsByDate(zone,date)
   }
 
   def getSitePosts(zone: String, domain: String) = {
-    PostRespository.getSitePosts(zone,domain)
+    SitePostRespository.getSitePosts(domain)
   }
 
   def getSitePostsByDate(zone: String, domain: String, date: Date) = {
-    PostRespository.getSitePostsByDate(zone,domain,date)
+    SitePostRespository.getSitePostsByDate(domain,date)
   }
 
   def getZoneCustomPosts(zone: String, start: Date, end: Date) = {
-    PostRespository.getZoneCustomPosts(zone,start,end)
+    ZonePostRespository.getZoneCustomPosts(zone,start,end)
   }
 
   def getSiteCustomPosts(zone: String, domain: String, start: Date, end: Date)={
-    PostRespository.getSiteCustomPosts(zone,domain,start,end)
+    SitePostRespository.getSiteCustomPosts(domain,start,end)
   }
 
 }

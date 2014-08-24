@@ -45,8 +45,8 @@ GET            /api/feed/delete/:zone/:id                 controllers.FeedsContr
 # Posts
 GET            /api/posts/:zone                           controllers.PostsController.getPostsByZone(zone)
 GET            /api/post/:zone/:id                        controllers.PostsController.getPostById(zone,id)
-GET            /api/posts/:zone/:date                     controllers.PostsController.getZonePostsByDate(zone,date)
-GET            /api/posts/:zone/:start/:end               controllers.PostsController.getZoneCustomPosts(zone,start,end)
+GET            /api/posts/date/:zone/:date                controllers.PostsController.getZonePostsByDate(zone,date)
+GET            /api/posts/date/:zone/:start/:end          controllers.PostsController.getZoneCustomPosts(zone,start,end)
 GET            /api/posts/site/:zone/:domain              controllers.PostsController.getSitePosts(zone,domain)
 GET            /api/posts/site/:zone/:domain/:date        controllers.PostsController.getSitePostsByDate(zone,domain,date)
 GET            /api/posts/site/:zone/:domain/:start/:end  controllers.PostsController.getSiteCustomPosts(zone,domain,start,end)
