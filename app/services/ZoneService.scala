@@ -26,6 +26,10 @@ object ZoneService {
     ZoneRespository.deleteZoneById(id)
   }
 
+  def updateZoneStatus(id:String, status:String) = {
+    ZoneRespository.updateStatus(id,status)
+  }
+
 
 
 }

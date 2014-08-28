@@ -21,13 +21,15 @@ class ZoneRespository extends CassandraTable[ZoneRespository, Zone] {
   object code extends StringColumn(this)
 
   object status extends StringColumn(this)
+  object flag extends StringColumn(this)
 
   override def fromRow(row: Row): Zone = {
     Zone(
       id(row),
       name(row),
       code(row),
-      status(row)
+      status(row),
+     flag(row)
     )
   }
 }
@@ -41,6 +43,7 @@ object ZoneRespository extends ZoneRespository with DataConnection {
       .value(_.name, zone.name)
       .value(_.code, zone.code)
       .value(_.status, zone.status)
+      .value(_.flag, zone.flag)
       .future()
   }
 
@@ -57,6 +60,12 @@ object ZoneRespository extends ZoneRespository with DataConnection {
       .modify(_.name setTo zone.name )
       .and(_.code setTo zone.code)
       .and(_.status setTo zone.status)
+      .future()
+  }
+
+  def updateStatus(id:String, status:String): Future[ResultSet] = {
+    update.where(_.id eqs id)
+      .modify(_.status setTo status )
       .future()
   }
 
