@@ -20,7 +20,7 @@ object Util extends Enumeration {
     }
   }
 
-  val SPAM, PENDING, APPROVED, QUESTION, RESPONSE, FEED, POST = Value
+  val SPAM, PENDING, APPROVED, QUESTION, RESPONSE, FEED, POST, ENABLED, DISABLED = Value
 
   def getDate(date: String): Date = {
     DateTime.parse(date).toDate
