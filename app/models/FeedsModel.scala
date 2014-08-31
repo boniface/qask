@@ -25,11 +25,12 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2014/07/12.
  */
-case class FeedsModel(
+case class FeedsModel( zone:String,
                        feedLink: String,
                        feedType: String,
                        feedSite: String,
-                       siteLogo: String) {
+                       siteLogo: String,
+                       siteCode:String) {
   def getDomain(): Feed = FeedsModel.domain(this)
 }
 
@@ -37,6 +38,6 @@ object FeedsModel {
   implicit val roleFmt = Json.format[FeedsModel]
 
   def domain(model: FeedsModel) = {
-    Feed("zone",Util.md5Hash(UUID.randomUUID().toString()), model.feedLink, model.feedType, model.feedSite, model.siteLogo)
+    Feed(model.zone,Util.md5Hash(UUID.randomUUID().toString()), model.feedLink, model.feedType, model.feedSite, model.siteLogo,model.siteCode)
   }
 }

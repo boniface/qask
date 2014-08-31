@@ -45,16 +45,14 @@ object FeedsController extends Controller {
   }
 
   def update(zone:String,feedId:String) = Action.async(parse.json) {
-    Logger.info("This has been Called ")
     request =>
       val input = request.body
       val feedsModel = Json.fromJson[FeedsModel](input).get
       val f = feedsModel.getDomain()
-      Logger.info("FEED CREATED  has been Called ")
       val feed = f.copy(zone=zone,id = feedId)
       val results = FeedsService.save(feed)
       results.map(result =>
-        Ok(Json.toJson(result.isExhausted)))
+        Ok(Json.toJson(feed)))
   }
   def getFeedById(zone:String,id: String) = Action.async {
     request =>

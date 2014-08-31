@@ -26,7 +26,6 @@ class StatusRepository extends CassandraTable[StatusRepository, Status] {
 
 object StatusRepository extends StatusRepository with DataConnection {
   override lazy val tableName = "status"
-
   def save(status: Status): Future[ResultSet] = {
     insert
       .value(_.subjectId, status.subjectId)

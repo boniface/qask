@@ -7,6 +7,7 @@ OPTIONS        /*path                                           controllers.Appl
 GET            /                                                controllers.Application.index
 GET            /test/:zone/:id                                  controllers.Application.test(zone:String,id:String)
 GET            /dbsetup                                         controllers.Application.dbsetup
+POST           /api/upload                                          controllers.Application.upload
 
 # Roles
 POST           /api/role                                        controllers.RoleController.create
@@ -15,11 +16,11 @@ GET            /api/role/roles                                  controllers.Role
 
 # Zones
 POST           /api/zone                                        controllers.ZoneController.create
-POST           /api/zone/:id                                    controllers.ZoneController.update(id)
+PUT            /api/zone/:id                                    controllers.ZoneController.update(id)
 GET            /api/role/get/:id                                controllers.ZoneController.getZoneById(id:String)
 GET            /api/zones                                       controllers.ZoneController.getZones
 GET            /api/zone/status/:id/:status                     controllers.ZoneController.updateZoneStatus(id,status)
-GET            /api/zone/delete/:id                             controllers.ZoneController.deleteZone(id)
+DELETE         /api/zone/delete/:id                             controllers.ZoneController.deleteZone(id)
 
 # Votes
 GET            /api/vote/upvote/:id                             controllers.VoteController.upvote(id:String)
@@ -48,7 +49,7 @@ GET            /api/feed/get/:zone/:id                          controllers.Feed
 GET            /api/feeds                                       controllers.FeedsController.getFeeds
 GET            /api/feeds/:zone                                 controllers.FeedsController.getFeedsByZone(zone)
 PUT            /api/feed/update/:zone/:id                       controllers.FeedsController.update(zone,id)
-GET            /api/feed/delete/:zone/:id                       controllers.FeedsController.deleteFeed(zone,id)
+DELETE         /api/feed/delete/:zone/:id                       controllers.FeedsController.deleteFeed(zone,id)
 
 # Posts
 GET            /api/posts/:zone                                 controllers.PostsController.getPostsByZone(zone)

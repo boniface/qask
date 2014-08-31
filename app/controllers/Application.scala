@@ -1,10 +1,13 @@
 package controllers
 
 
+import java.io.File
+
 import play.api.libs.json.Json
 import play.api.mvc._
 import respository._
 import scala.concurrent.ExecutionContext.Implicits.global
+
 
 object Application extends Controller {
 
@@ -49,8 +52,19 @@ object Application extends Controller {
     results map (result => {
       Ok(Json.toJson("Done"))
     })
+  }
 
+  def upload = Action(parse.temporaryFile) { request =>
+//    val file = request.body
+//    val j= Json.fromJson(file)
+    println("The Uploaded File is ", request.body.file)
+    val fi = request.body.file
 
+    print(fi.getTotalSpace)
+
+//    request.body.moveTo(new File("images/"))
+
+    Ok("File uploaded")
   }
 
 }

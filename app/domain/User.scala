@@ -11,7 +11,7 @@ case class User( email: String,
                 social: Map[String, String])
 
 
-object JsonFormats {
+object User {
   // Generates Writes and Reads for Feed and User thanks to Json Macros
   implicit val userFormat = Json.format[User]
 }

@@ -36,7 +36,8 @@ case class Post(
                  imageUrl:String,
                  seo:String,
                  imagePath:String,
-                 caption:String
+                 caption:String,
+                 siteCode:String
                  )
 
 object Post {

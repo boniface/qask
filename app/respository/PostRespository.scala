@@ -55,6 +55,8 @@ class PostRespository extends CassandraTable[PostRespository, Post] {
 
   object caption extends StringColumn(this)
 
+  object siteCode extends StringColumn(this)
+
   override def fromRow(row: Row): Post = {
     Post(
       zone(row),
@@ -69,7 +71,8 @@ class PostRespository extends CassandraTable[PostRespository, Post] {
       imageUrl(row),
       seo(row),
       imagePath(row),
-      caption(row)
+      caption(row),
+      siteCode(row)
     )
   }
 }
@@ -92,6 +95,7 @@ object PostRespository extends PostRespository with DataConnection {
       .value(_.seo, post.seo)
       .value(_.imagePath, post.imagePath)
       .value(_.caption, post.caption)
+      .value(_.siteCode, post.siteCode)
       .future()
   }
 
