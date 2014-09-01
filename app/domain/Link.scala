@@ -27,7 +27,8 @@ case class Link(  zone:String,
                   linkhash: String,
                   datePublished: Date,
                   url:String,
-                  site: String
+                  site: String,
+                  siteCode:String
                   )
 
 object Link {

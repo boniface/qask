@@ -40,9 +40,10 @@ class LinksRespository extends CassandraTable[LinksRespository, Link] {
   object url extends StringColumn(this)
 
   object site extends StringColumn(this)
+  object siteCode extends StringColumn(this)
 
   override def fromRow(row: Row): Link = {
-    Link(zone(row),linkhash(row), datepublished(row),url(row), site(row))
+    Link(zone(row),linkhash(row), datepublished(row),url(row), site(row),siteCode(row))
   }
 }
 
@@ -56,6 +57,7 @@ object LinksRespository extends LinksRespository with DataConnection {
       .value(_.url, link.url)
       .value(_.zone, link.zone)
       .value(_.datepublished, link.datePublished)
+      .value(_.siteCode, link.siteCode)
       .future()
   }
 
