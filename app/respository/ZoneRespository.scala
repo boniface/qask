@@ -5,7 +5,7 @@ import com.websudos.phantom.CassandraTable
 import com.websudos.phantom.Implicits._
 import com.websudos.phantom.iteratee.Iteratee
 import conf.DataConnection
-import domain.{Zone}
+import domain.Zone
 
 import scala.concurrent.Future
 
@@ -21,6 +21,7 @@ class ZoneRespository extends CassandraTable[ZoneRespository, Zone] {
   object code extends StringColumn(this)
 
   object status extends StringColumn(this)
+
   object flag extends StringColumn(this)
 
   override def fromRow(row: Row): Zone = {
@@ -29,7 +30,7 @@ class ZoneRespository extends CassandraTable[ZoneRespository, Zone] {
       name(row),
       code(row),
       status(row),
-     flag(row)
+      flag(row)
     )
   }
 }
@@ -55,17 +56,17 @@ object ZoneRespository extends ZoneRespository with DataConnection {
     select.fetchEnumerator() run Iteratee.collect()
   }
 
-  def updateZone(zone:Zone): Future[ResultSet] = {
+  def updateZone(zone: Zone): Future[ResultSet] = {
     update.where(_.id eqs zone.id)
-      .modify(_.name setTo zone.name )
+      .modify(_.name setTo zone.name)
       .and(_.code setTo zone.code)
       .and(_.status setTo zone.status)
       .future()
   }
 
-  def updateStatus(id:String, status:String): Future[ResultSet] = {
+  def updateStatus(id: String, status: String): Future[ResultSet] = {
     update.where(_.id eqs id)
-      .modify(_.status setTo status )
+      .modify(_.status setTo status)
       .future()
   }
 

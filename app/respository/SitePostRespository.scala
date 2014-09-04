@@ -99,13 +99,13 @@ object SitePostRespository extends SitePostRespository with DataConnection {
   }
 
   def getSitePosts(domain: String) = {
-    select.where(_.domain eqs domain)
+    select.where(_.domain eqs domain).orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
 
   def getSitePostsByDate( domain: String, date: Date): Future[Seq[Post]] = {
     select.where(_.domain eqs domain)
-      .and(_.date gte date)
+      .and(_.date gte date).orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
 
@@ -113,7 +113,7 @@ object SitePostRespository extends SitePostRespository with DataConnection {
     select.where(_.domain eqs domain)
       .and(_.domain eqs domain)
       .and(_.date lt start)
-      .and(_.date gte end)
+      .and(_.date gte end).orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
 
