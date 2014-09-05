@@ -43,6 +43,7 @@ object PostsController extends Controller {
   }
 
   def getZonePostsByDate(zone: String, date:String) = Action.async {
+
     request =>
       PostsService.getZonePostsByDate(zone, Util.getDate(date)) map
         (posts => Ok(Json.toJson(posts)))

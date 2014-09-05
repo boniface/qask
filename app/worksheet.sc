@@ -19,8 +19,8 @@ val  today = DateTime.now().toLocalDate;
 println("Today is Date ", today.toDate)
 println("Yesterday was Date ", today.minusDays(1).toDate)
 
-println("Start of This Week Date",today.withDayOfMonth(DateTimeConstants.SUNDAY).toDate)
-println(" Start of the Month", today.dayOfMonth().withMinimumValue())
+println("THIS WEEK IS START",today.withDayOfWeek(DateTimeConstants.SUNDAY).minusDays(7).toDate)
+println(" Start of the Month", today.dayOfMonth.withMinimumValue())
 val res = test("hello")
 
 def test(value:String) = {

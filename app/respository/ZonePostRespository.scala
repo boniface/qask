@@ -112,8 +112,8 @@ object ZonePostRespository extends ZonePostRespository with DataConnection {
 
   def getZoneCustomPosts(zone: String, start: Date, end: Date): Future[Seq[Post]] = {
     select.where(_.zone eqs zone)
-      .and(_.date lt start)
-      .and(_.date gte end).orderBy(_.date.desc)
+      .and(_.date gte start)
+      .and(_.date lt end).orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
 

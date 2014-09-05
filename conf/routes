@@ -7,7 +7,7 @@ OPTIONS        /*path                                           controllers.Appl
 GET            /                                                controllers.Application.index
 GET            /test/:zone/:id                                  controllers.Application.test(zone:String,id:String)
 GET            /dbsetup                                         controllers.Application.dbsetup
-POST           /api/upload                                          controllers.Application.upload
+POST           /api/upload                                      controllers.Application.upload
 
 # Roles
 POST           /api/role                                        controllers.RoleController.create

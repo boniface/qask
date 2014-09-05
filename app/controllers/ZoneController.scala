@@ -15,7 +15,6 @@ object ZoneController extends Controller {
   def create = Action.async(parse.json) {
     request =>
       val input = request.body
-      println(" This is Hit with ",input)
       val zoneModel = Json.fromJson[ZoneModel](input).get
       val zone = zoneModel.getDomain()
       val results = ZoneService.createZone(zone)
@@ -24,7 +23,6 @@ object ZoneController extends Controller {
   }
 
   def update(feedId:String) = Action.async(parse.json) {
-    Logger.info("This has been Called ")
     request =>
       val input = request.body
       val zoneModel = Json.fromJson[ZoneModel](input).get

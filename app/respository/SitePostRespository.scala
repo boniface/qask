@@ -112,8 +112,8 @@ object SitePostRespository extends SitePostRespository with DataConnection {
   def getSiteCustomPosts(domain: String, start: Date, end: Date): Future[Seq[Post]] = {
     select.where(_.domain eqs domain)
       .and(_.domain eqs domain)
-      .and(_.date lt start)
-      .and(_.date gte end).orderBy(_.date.desc)
+      .and(_.date gte start)
+      .and(_.date lt end).orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
 
