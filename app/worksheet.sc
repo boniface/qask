@@ -5,16 +5,32 @@ val values = List(1,2,3)
 
 println("The output  as is "+name)
 import java.net._
-
+import org.joda.time.{DateTimeConstants, LocalDate, DateTime}
 val localhost = InetAddress.getLocalHost
-
 val host = localhost.getHostName
-
 val ip = localhost.getHostAddress
-
 object Margin extends Enumeration {
   type Margin = Value
   val TOP, BOTTOM, LEFT, RIGHT = Value
 }
 
-val top = Margin.BOTTOM.toString
+
+val  today = DateTime.now().toLocalDate;
+println("Today is Date ", today.toDate)
+println("Yesterday was Date ", today.minusDays(1).toDate)
+
+println("Start of This Week Date",today.withDayOfMonth(DateTimeConstants.SUNDAY).toDate)
+println(" Start of the Month", today.dayOfMonth().withMinimumValue())
+val res = test("hello")
+
+def test(value:String) = {
+  value match {
+    case "hello"=> "Hello"
+    case "world"=> "World"
+    case _=> "Doesn't Match"
+  }
+
+}
+
+
+

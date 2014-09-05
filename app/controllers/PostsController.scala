@@ -62,17 +62,15 @@ object PostsController extends Controller {
 
   def getZoneCustomPosts(zone: String, start: String, end: String) = Action.async {
     request =>
-      PostsService.getZoneCustomPosts(zone, Util.getDate(start), Util.getDate(end)) map
+      PostsService.getZoneCustomPosts(zone, Util.getDateFromString(start), Util.getDateFromString(end)) map
         (posts => Ok(Json.toJson(posts)))
   }
 
   def getSiteCustomPosts(zone: String, domain: String, start: String, end: String) = Action.async {
     request =>
-      PostsService.getSiteCustomPosts(zone, domain, Util.getDate(start), Util.getDate(end)) map
+      PostsService.getSiteCustomPosts(zone, domain, Util.getDateFromString(start), Util.getDateFromString(end)) map
         (posts => Ok(Json.toJson(posts)))
   }
-
-
 
 
 }

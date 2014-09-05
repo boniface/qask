@@ -2,7 +2,7 @@ package conf
 
 import java.util.Date
 
-import org.joda.time.DateTime
+import org.joda.time.{DateTimeConstants, DateTime}
 
 /**
  * Created by hashcode on 2014/08/16.
@@ -20,9 +20,20 @@ object Util extends Enumeration {
     }
   }
 
-  val SPAM, PENDING, APPROVED, QUESTION, RESPONSE, FEED, POST, ENABLED, DISABLED = Value
+  val SPAM, PENDING, APPROVED, QUESTION, RESPONSE, FEED, POST, ENABLED, DISABLED, TODAY,YESTERDAY,WEEK,MONTH = Value
 
   def getDate(date: String): Date = {
+    date match{
+      case "TODAY" =>  DateTime.now.toLocalDate.toDate
+      case "YESTERDAY"=>  DateTime.now.minusDays(1).toDate
+      case "WEEK" =>  DateTime.now.withDayOfMonth(DateTimeConstants.SUNDAY).toDate
+      case "MONTH" =>  DateTime.now.dayOfMonth.withMinimumValue.toDate
+      case _ => DateTime.now.toDate
+    }
+
+  }
+
+  def getDateFromString(date:String):Date ={
     DateTime.parse(date).toDate
   }
 }
