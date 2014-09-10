@@ -23,6 +23,7 @@ import com.websudos.phantom.Implicits._
 import com.websudos.phantom.iteratee.Iteratee
 import conf.DataConnection
 import domain.Post
+import org.joda.time.DateTime
 
 import scala.concurrent.Future
 
@@ -106,6 +107,16 @@ object SitePostRespository extends SitePostRespository with DataConnection {
   def getSitePostsByDate( domain: String, date: Date): Future[Seq[Post]] = {
     select.where(_.domain eqs domain)
       .and(_.date gte date).orderBy(_.date.desc)
+      .fetchEnumerator() run Iteratee.collect()
+  }
+
+  def getSitePostsByYesterday(domain: String, date: Date): Future[Seq[Post]] = {
+    val today = new DateTime(date).plusDays(1).withTimeAtStartOfDay().toDate
+    val yesterday = new DateTime(date).withTimeAtStartOfDay().toDate
+    select.where(_.domain eqs domain)
+      .and(_.date lt  today)
+      .and(_.date gte yesterday)
+      .orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
 

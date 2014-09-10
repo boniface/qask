@@ -23,6 +23,7 @@ import com.websudos.phantom.Implicits._
 import com.websudos.phantom.iteratee.Iteratee
 import conf.DataConnection
 import domain.Post
+import org.joda.time.DateTime
 
 import scala.concurrent.Future
 
@@ -110,10 +111,21 @@ object ZonePostRespository extends ZonePostRespository with DataConnection {
       .fetchEnumerator() run Iteratee.collect()
   }
 
+  def getZonePostsByYesterday(zone: String, date: Date): Future[Seq[Post]] = {
+    val today = new DateTime(date).plusDays(1).withTimeAtStartOfDay().toDate
+    val yesterday = new DateTime(date).withTimeAtStartOfDay().toDate
+    select.where(_.zone eqs zone)
+      .and(_.date lt  today)
+      .and(_.date gte yesterday)
+      .orderBy(_.date.desc)
+      .fetchEnumerator() run Iteratee.collect()
+  }
+
   def getZoneCustomPosts(zone: String, start: Date, end: Date): Future[Seq[Post]] = {
     select.where(_.zone eqs zone)
       .and(_.date gte start)
-      .and(_.date lt end).orderBy(_.date.desc)
+      .and(_.date lt end)
+      .orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
 

@@ -49,6 +49,12 @@ object PostsController extends Controller {
         (posts => Ok(Json.toJson(posts)))
   }
 
+  def getZonePostsByYesterday(zone: String, date:String) = Action.async {
+    request =>
+      PostsService.getZonePostsByYesterday(zone, Util.getDate(date)) map
+        (posts => Ok(Json.toJson(posts)))
+  }
+
   def getSitePosts(zone: String, domain: String) = Action.async {
     request =>
       PostsService.getSitePosts(zone, domain) map
@@ -58,6 +64,12 @@ object PostsController extends Controller {
   def getSitePostsByDate(zone: String, domain: String, date: String) = Action.async {
     request =>
       PostsService.getSitePostsByDate(zone, domain, Util.getDate(date)) map
+        (posts => Ok(Json.toJson(posts)))
+  }
+
+  def getSitePostsByYesterday(zone: String, domain: String, date: String) = Action.async {
+    request =>
+      PostsService.getSitePostsByYesterday(zone, domain, Util.getDate(date)) map
         (posts => Ok(Json.toJson(posts)))
   }
 

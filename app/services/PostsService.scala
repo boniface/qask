@@ -42,12 +42,20 @@ object PostsService {
     ZonePostRespository.getZonePostsByDate(zone,date)
   }
 
+  def getZonePostsByYesterday(zone: String, date: Date) = {
+    ZonePostRespository.getZonePostsByYesterday(zone,date)
+  }
+
   def getSitePosts(zone: String, domain: String) = {
     SitePostRespository.getSitePosts(domain)
   }
 
   def getSitePostsByDate(zone: String, domain: String, date: Date) = {
     SitePostRespository.getSitePostsByDate(domain,date)
+  }
+
+  def getSitePostsByYesterday(zone: String, domain: String, date: Date) = {
+    SitePostRespository.getSitePostsByYesterday(domain,date)
   }
 
   def getZoneCustomPosts(zone: String, start: Date, end: Date) = {
