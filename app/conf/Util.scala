@@ -24,10 +24,10 @@ object Util extends Enumeration {
 
   def getDate(date: String): Date = {
     date match{
-      case "TODAY" =>  DateTime.now.toLocalDate.toDate
+      case "TODAY" =>  DateTime.now.withTimeAtStartOfDay().toLocalDate.toDate
       case "YESTERDAY"=>  DateTime.now.minusDays(1).toDate
-      case "WEEK" =>  DateTime.now.withDayOfWeek(DateTimeConstants.SUNDAY).minusDays(7).toDate
-      case "MONTH" =>  DateTime.now.dayOfMonth.withMinimumValue.toDate
+      case "WEEK" =>  DateTime.now.withTimeAtStartOfDay.withDayOfWeek(DateTimeConstants.SUNDAY).minusDays(7).toDate
+      case "MONTH" =>  DateTime.now.withTimeAtStartOfDay.dayOfMonth.withMinimumValue.toDate
       case _ => DateTime.now.toDate
     }
 
