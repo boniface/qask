@@ -1,8 +1,6 @@
 package services
 
-import domain.UpVote
-import org.scalatest.{GivenWhenThen, FeatureSpec}
-
+import org.scalatest.{FeatureSpec, GivenWhenThen}
 
 /**
  * Created by hashcode on 2014/07/08.
