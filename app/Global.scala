@@ -1,24 +1,35 @@
+import java.util.concurrent.TimeUnit
+
+import akka.actor.Props
 import conf.CORSFilter
-import play.api.{Application, GlobalSettings}
 import play.api.libs.concurrent.Akka
-import play.api.mvc.WithFilters
-import scala.concurrent.duration._
 import play.api.libs.concurrent.Execution.Implicits._
-import play.api.Play.current
+import play.api.mvc.WithFilters
+import play.api.{Application, GlobalSettings, Logger}
+import services.actors.ContentProcessingActor
+
+import scala.concurrent.duration._
 
 /**
  * Created by hashcode on 2014/07/19.
  */
-object Global extends WithFilters(CORSFilter()) with GlobalSettings  {
+object Global extends WithFilters(CORSFilter()) with GlobalSettings {
 
   override def onStart(app: Application): Unit = {
 
     super.onStart(app)
-    println("This is Not really Schewduling ")
-    Akka.system.scheduler.
-      scheduleOnce(1000.microsecond) {
-      println("This is Executing ")
-    }
-
+    schedular(app)
   }
+
+  def schedular(app: Application) = {
+    Logger.info("Starting The Daemon")
+    val contentProcessingActor = Akka.system(app).actorOf(Props(new ContentProcessingActor()))
+    Akka.system(app).scheduler.schedule(
+        Duration.create(0, TimeUnit.MILLISECONDS), //Initial delay 0 milliseconds
+        Duration.create(15, TimeUnit.MINUTES),     //Frequency 15 minutes
+        contentProcessingActor,
+        "START" )
+  }
+
+
 }
