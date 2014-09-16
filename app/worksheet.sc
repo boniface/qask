@@ -17,6 +17,11 @@ setA foreach(e => r.sadd("title",e))
 val res = r.sinter("title","stopwords")
 
 val list = for {
-  l <-res
-  
-} yield l
+  l <-res.get
+  ans =l.get
+  rep = ans.mkString
+} yield rep
+
+val set = Set("hello","hejjsje")
+
+val str = set.mkString(" ")
