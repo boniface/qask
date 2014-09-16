@@ -16,4 +16,7 @@ setA foreach(e => r.sadd("title",e))
 
 val res = r.sinter("title","stopwords")
 
-
+val list = for {
+  l <-res
+  
+} yield l
