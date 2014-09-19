@@ -11,8 +11,9 @@ val route = new URL("https://www.zambianwatchdog.com/no-journalist-during-openin
 //val  text = ArticleSentencesExtractor.INSTANCE.getText(route);
 
 val goose = new Goose(new Configuration)
-val article = goose.extractContent("http://www.daily-mail.co.zm/?p=4216")
+val article = goose.extractContent("http://www.daily-mail.co.zm/?p=4396")
 article
+println(" The Title",article.title)
 println("The Article",article.cleanedArticleText)
 println("The Date",article.getPublishDate())
 println("the Image ", article.getTopImage.getImageSrc)
