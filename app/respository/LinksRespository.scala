@@ -33,12 +33,11 @@ import scala.concurrent.Future
 class LinksRespository extends CassandraTable[LinksRespository, Link] {
 
   object zone extends StringColumn(this) with PartitionKey[String]
-  object linkhash extends StringColumn(this) with PrimaryKey[String]
   object datepublished extends DateColumn(this) with PrimaryKey[Date]
+  object linkhash extends StringColumn(this) with PrimaryKey[String]
 
 
   object url extends StringColumn(this)
-
   object site extends StringColumn(this)
   object siteCode extends StringColumn(this)
 
@@ -70,6 +69,12 @@ object LinksRespository extends LinksRespository with DataConnection {
   }
 
   def getLinksByDate(): Future[Seq[Link]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+    val date = DateTime.now().minusHours(2).toDate
+    select.where(_.datepublished gte date).fetchEnumerator() run Iteratee.collect()
+  }
+
+  def getLatestLinks(zone:String): Future[Seq[Link]] = {
+    val date = DateTime.now().minusHours(2).toDate
+    select.where(_.zone eqs zone).and(_.datepublished gte date).fetchEnumerator() run Iteratee.collect()
   }
 }

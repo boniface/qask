@@ -14,12 +14,6 @@ class ViewsTest  extends FeatureSpec with GivenWhenThen {
     info(" When The Count is Issued")
     scenario(" "){
 
-
-
-
-
-
-
     }
 
   }

@@ -1,7 +1,8 @@
 
 import java.net.URL
 
-import com.gravity.goose.{Goose, Configuration}
+
+import com.gravity.goose.{Configuration, Goose}
 import com.redis._
 import de.l3s.boilerpipe.extractors.{ArticleSentencesExtractor, ArticleExtractor}
 
