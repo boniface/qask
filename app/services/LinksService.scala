@@ -25,6 +25,9 @@ object LinksService {
   def service = LinksRespository
 
   def getAllLinks = {
-    val result = service.getAllLinks
+    val result = LinksRespository.getAllLinks
+  }
+  def getLatestLinks(zone:String) = {
+    LinksRespository.getLatestLinks(zone)
   }
 }

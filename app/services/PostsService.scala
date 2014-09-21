@@ -19,7 +19,7 @@ package services
 import java.util.Date
 
 import conf.Util
-import domain.Stats
+import domain.{Post, Stats}
 import respository.{SitePostRespository, ZonePostRespository, StatsRepository, PostRespository}
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -66,4 +66,7 @@ object PostsService {
     SitePostRespository.getSiteCustomPosts(domain,start,end)
   }
 
+  def createPost(post:Post) = {
+    PostRespository.save(post)
+  }
 }
