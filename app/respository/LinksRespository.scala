@@ -74,7 +74,7 @@ object LinksRespository extends LinksRespository with DataConnection {
   }
 
   def getLatestLinks(zone:String): Future[Seq[Link]] = {
-    val date = DateTime.now().minusHours(2).toDate
+    val date = DateTime.now().minusHours(3).toDate
     select.where(_.zone eqs zone).and(_.datepublished gte date).fetchEnumerator() run Iteratee.collect()
   }
 }
