@@ -96,7 +96,45 @@ object PostRespository extends PostRespository with DataConnection {
       .value(_.imagePath, post.imagePath)
       .value(_.caption, post.caption)
       .value(_.siteCode, post.siteCode)
-      .future()
+      .future() flatMap {
+       _ =>{
+         SitePostRespository.insert
+           .value(_.linkhash, post.linkhash)
+           .value(_.domain, post.domain)
+           .value(_.date, post.date)
+           .value(_.title, post.title)
+           .value(_.article, post.article)
+           .value(_.metakeywords, post.metakeywords)
+           .value(_.metaDescription, post.metaDescription)
+           .value(_.link, post.link)
+           .value(_.zone, post.zone)
+           .value(_.imageUrl, post.imageUrl)
+           .value(_.seo, post.seo)
+           .value(_.imagePath, post.imagePath)
+           .value(_.caption, post.caption)
+           .value(_.siteCode, post.siteCode)
+           .future() flatMap {
+           _ =>{
+             ZonePostRespository.insert
+               .value(_.linkhash, post.linkhash)
+               .value(_.domain, post.domain)
+               .value(_.date, post.date)
+               .value(_.title, post.title)
+               .value(_.article, post.article)
+               .value(_.metakeywords, post.metakeywords)
+               .value(_.metaDescription, post.metaDescription)
+               .value(_.link, post.link)
+               .value(_.zone, post.zone)
+               .value(_.imageUrl, post.imageUrl)
+               .value(_.seo, post.seo)
+               .value(_.imagePath, post.imagePath)
+               .value(_.caption, post.caption)
+               .value(_.siteCode, post.siteCode)
+               .future()
+           }
+         }
+       }
+    }
   }
 
 
