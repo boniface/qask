@@ -1,5 +1,6 @@
 package services
 
+import com.github.slugify.Slugify
 import com.gravity.goose.{Configuration, Goose}
 import domain.{Link, Post}
 
@@ -7,43 +8,44 @@ import domain.{Link, Post}
  * Created by hashcode on 2014/09/21.
  */
 object FetchContent {
-  def getContent(link:Link) = {
-    val goose = new Goose(new Configuration)
-    val article = goose.extractContent(link.url)
-    val post = Post(
+  def getContent(link:Link):Post = {
+    val article = new Goose(new Configuration).extractContent(link.url)
+   Post(
       link.zone,
       link.linkhash,
       link.site,
       link.datePublished,
       article.getTitle(),
       article.getCleanedArticleText(),
-      article.metaKeywords,
-      article.getMetaDescription,
+      getMetaKeywords(article.title),
+      getMedecription(article.getCleanedArticleText),
       article.getFinalUrl,article.getTopImage().getImageSrc,
-      "seo",
+      getPrettySeo(article.title),
       article.getTopImage().getImageSrc,
-      "caption",
-      link.siteCode)
+      getCaption(),
+      link.siteCode
+   )
   }
-
   def getMetaKeywords(title:String)={
-
+    val cleanedWords = FilterService.removeStopWords(title)
+    cleanedWords.split(' ').map(_.capitalize).mkString(",")
   }
 
-  def getMedecription(title:String)={
-
+  def getMedecription(article:String)={
+    val description = article.substring(0,156)
+    description.split(' ').map(_.capitalize).mkString(" ")
   }
-
   def getPrettySeo(title:String)={
-
+    val cleanedWords = FilterService.removeStopWords(title)
+    val slg = new Slugify()
+     slg.slugify(cleanedWords)
   }
 
   def getCaption() = {
-
+    "NoCaption"
   }
 
   def getMovies = {
-    
-  }
 
+  }
 }

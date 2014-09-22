@@ -2,22 +2,17 @@
 import java.net.URL
 
 
+import com.github.slugify.Slugify
 import com.gravity.goose.{Configuration, Goose}
 import com.redis._
 import de.l3s.boilerpipe.extractors.{ArticleSentencesExtractor, ArticleExtractor}
 
 
-val route = new URL("https://www.zambianwatchdog.com/no-journalist-during-opening-of-parliament/");
+val slug = new Slugify()
+val seo = slug.slugify("This is a test Post and Lets See ")
 
-//val  text = ArticleSentencesExtractor.INSTANCE.getText(route);
+val nestr = "This is a test String for the Systemm to just See the chara get".substring(0,10)
 
-val goose = new Goose(new Configuration)
-val article = goose.extractContent("http://www.daily-mail.co.zm/?p=4396")
-article
-println(" The Title",article.title)
-println("The Article",article.cleanedArticleText)
-println("The Date",article.getPublishDate())
-println("the Image ", article.getTopImage.getImageSrc)
 val r = new RedisClient("localhost", 6379)
 val mesg = "This is The head  for and The We need to Sort"
 val ms1="This is another Headline"
@@ -33,5 +28,5 @@ val list = for {
   rep = ans
 } yield rep
 val les = list.mkString(" ")
-val set = Set("hello","hejjsje")
-val str = set.mkString(" ")
+val set = Set("hello","lheLot","lusaka","lusakatime")
+val str = set.mkString(" ").split(' ').map(_.capitalize).mkString(",")

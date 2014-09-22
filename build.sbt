@@ -55,6 +55,8 @@ libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.3.3"
 
 libraryDependencies += "org.jsoup" % "jsoup" % "1.7.3"
 
+libraryDependencies += "com.github.slugify" % "slugify" % "2.1.2"
+
 
 
 
