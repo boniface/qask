@@ -14,7 +14,6 @@ object FilterService {
     val filter = new FilterExpressionRepository
     filter.removeStopWords(sets,"KEYN"+key)
   }
-
   def key=Util.md5Hash(UUID.randomUUID().toString)
 
 }
