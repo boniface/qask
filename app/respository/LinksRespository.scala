@@ -31,7 +31,6 @@ import scala.concurrent.Future
  * Created by hashcode on 2014/07/12.
  */
 class LinksRespository extends CassandraTable[LinksRespository, Link] {
-
   object zone extends StringColumn(this) with PartitionKey[String]
   object datepublished extends DateColumn(this) with PrimaryKey[Date]
   object linkhash extends StringColumn(this) with PrimaryKey[String]
