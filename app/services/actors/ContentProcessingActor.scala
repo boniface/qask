@@ -15,8 +15,12 @@ class ContentProcessingActor extends Actor {
   override def receive: Receive = {
     case "START" => {
       log.info(" We Are Ready to Start")
-      ZoneService.getZones map (zone => zone foreach(v=> println("The Zone is ",v.code)))
+      ZoneService.getZones map (zone => zone foreach(
+        v=> println("The Zone is ",v.code))
+        )
     }
+
+    
     case _      => log.info("received unknown message")
   }
 }
