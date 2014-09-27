@@ -10,7 +10,8 @@ import domain.{Link, Post}
 object FetchContent {
   def getContent(link:Link):Post = {
     val article = new Goose(new Configuration).extractContent(link.url)
-   Post(
+   // Handle Some Exceptions HERE
+    Post(
       link.zone,
       link.linkhash,
       article.getDomain(),
@@ -26,6 +27,7 @@ object FetchContent {
       getCaption(),
       link.siteCode
    )
+
   }
   def getMetaKeywords(title:String)={
     val cleanedWords = FilterService.removeStopWords(title)

@@ -21,13 +21,11 @@ class FilterTest extends FeatureSpec with GivenWhenThen {
 //      links map (link => link foreach (l => println(" The links is ", l.url)))
 
       val links = Await.result(LinksService.getLatestLinks("ZM"), 5000 millis)
-
       links.foreach (link => {
         println("This Works ", link.url)
         val post = FetchContent.getContent(link)
         PostsService.createPost(post)
         println("Post Submitted  ", link.url)
-
       }
         )
     }

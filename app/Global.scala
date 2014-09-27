@@ -8,6 +8,7 @@ import play.api.mvc.WithFilters
 import play.api.{Application, GlobalSettings, Logger}
 import services.actors.ContentProcessingActor
 
+import services.messages.Messages._
 import scala.concurrent.duration._
 
 /**
@@ -27,8 +28,7 @@ object Global extends WithFilters(CORSFilter()) with GlobalSettings {
     Akka.system(app).scheduler.schedule(
         Duration.create(0, TimeUnit.MILLISECONDS), //Initial delay 0 milliseconds
         Duration.create(15, TimeUnit.MINUTES),     //Frequency 15 minutes
-        contentProcessingActor,
-        "START" )
+        contentProcessingActor,  Start("START"))
   }
 
 
