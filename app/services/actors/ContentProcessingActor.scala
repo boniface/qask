@@ -20,7 +20,7 @@ class ContentProcessingActor extends Actor {
         )
     }
 
-    
+
     case _      => log.info("received unknown message")
   }
 }
