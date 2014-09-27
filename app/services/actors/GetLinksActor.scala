@@ -19,7 +19,6 @@ class GetLinksActor extends Actor{
         }
       })
     }
-
     case _ => println("Hey I don't get This")
   }
 }

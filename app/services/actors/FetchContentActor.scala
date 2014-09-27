@@ -12,7 +12,7 @@ class FetchContentActor extends Actor{
   override def receive: Receive = {
     case Links(links)=>{
       println(" We have the links Dude!!", links.size)
-      links.par foreach(link => {
+      links foreach(link => {
         val postContent = context.actorOf(Props[PostContentActor])
         val post = FetchContent.getContent(link)
         postContent ! PostContent(post)
