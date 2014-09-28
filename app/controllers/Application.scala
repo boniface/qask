@@ -9,6 +9,7 @@ import respository._
 import services.actors.ContentDisplayActor
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import play.api.Play.current
 
 
 object Application extends Controller {
