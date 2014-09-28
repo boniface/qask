@@ -3,10 +3,12 @@ package controllers
 
 import java.io.File
 
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import respository._
+import services.actors.ContentDisplayActor
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 
 object Application extends Controller {
@@ -65,6 +67,13 @@ object Application extends Controller {
 //    request.body.moveTo(new File("images/"))
 
     Ok("File uploaded")
+  }
+
+  def socket = WebSocket.tryAcceptWithActor[String, String] { request =>
+    Future.successful(request.session.get("user") match {
+      case None => Left(Forbidden)
+      case Some(_) => Right(ContentDisplayActor.props)
+    })
   }
 
 }

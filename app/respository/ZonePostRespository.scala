@@ -99,18 +99,18 @@ object ZonePostRespository extends ZonePostRespository with DataConnection {
       .value(_.siteCode, post.siteCode)
       .future()
   }
-
   def getPostsByZone(zone: String) = {
-    select.where(_.zone eqs zone).orderBy(_.date.desc)
+    val today =DateTime.now.withTimeAtStartOfDay().toLocalDate.toDate
+    select.where(_.zone eqs zone)
+      .and(_.date gte today)
+      .orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
-
   def getZonePostsByDate(zone: String, date: Date): Future[Seq[Post]] = {
     select.where(_.zone eqs zone)
       .and(_.date gte date).orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
-
   def getZonePostsByYesterday(zone: String, date: Date): Future[Seq[Post]] = {
     val today = new DateTime(date).plusDays(1).withTimeAtStartOfDay().toDate
     val yesterday = new DateTime(date).withTimeAtStartOfDay().toDate
@@ -120,7 +120,6 @@ object ZonePostRespository extends ZonePostRespository with DataConnection {
       .orderBy(_.date.desc)
       .fetchEnumerator() run Iteratee.collect()
   }
-
   def getZoneCustomPosts(zone: String, start: Date, end: Date): Future[Seq[Post]] = {
     select.where(_.zone eqs zone)
       .and(_.date gte start)

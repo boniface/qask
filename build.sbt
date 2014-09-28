@@ -4,7 +4,7 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.2"
 
 libraryDependencies ++= Seq(
   jdbc,
@@ -17,9 +17,10 @@ resolvers += "newzly External snapshots" at "http://newzly-artifactory.elasticbe
 
 resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "com.datastax.cassandra" % "cassandra-driver-core" % "2.0.4"
+libraryDependencies += "com.datastax.cassandra" % "cassandra-driver-core" % "2.1.1"
 
-libraryDependencies += "com.websudos"  %% "phantom-dsl"  % "1.2.2"
+
+libraryDependencies += "com.websudos"  %% "phantom-dsl"  % "1.2.7"
 
 libraryDependencies += "net.liftweb" % "lift-json_2.10" % "2.6-M4"
 

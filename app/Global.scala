@@ -27,7 +27,7 @@ object Global extends WithFilters(CORSFilter()) with GlobalSettings {
     val contentProcessingActor = Akka.system(app).actorOf(Props(new ContentProcessingActor()))
     Akka.system(app).scheduler.schedule(
         Duration.create(0, TimeUnit.MILLISECONDS), //Initial delay 0 milliseconds
-        Duration.create(15, TimeUnit.MINUTES),     //Frequency 15 minutes
+        Duration.create(20, TimeUnit.MINUTES),     //Frequency 15 minutes
         contentProcessingActor,  Start("START"))
   }
 
