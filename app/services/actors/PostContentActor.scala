@@ -11,6 +11,7 @@ class PostContentActor extends Actor{
   override def receive: Receive = {
     case PostContent(post) => {
       PostsService.createPost(post)
+      println("The Content is Posted ", post.link)
     }
   }
 }
