@@ -38,6 +38,11 @@ libraryDependencies ++= Seq(
   "net.debasishg" %% "redisclient" % "2.13"
 )
 
+val appDependencies = Seq(
+  "jp.t2v" %% "play2-auth"      % "0.12.0",
+  "jp.t2v" %% "play2-auth-test" % "0.12.0" % "test"
+)
+
 libraryDependencies += "com.syncthemall" % "boilerpipe" % "1.2.2"
 
 libraryDependencies += "net.sourceforge.nekohtml" % "nekohtml" % "1.9.21"
