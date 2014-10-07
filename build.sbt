@@ -19,7 +19,6 @@ resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/reposi
 
 libraryDependencies += "com.datastax.cassandra" % "cassandra-driver-core" % "2.1.1"
 
-
 libraryDependencies += "com.websudos"  %% "phantom-dsl"  % "1.2.7"
 
 libraryDependencies += "net.liftweb" % "lift-json_2.10" % "2.6-M4"
@@ -42,6 +41,9 @@ val appDependencies = Seq(
   "jp.t2v" %% "play2-auth"      % "0.12.0",
   "jp.t2v" %% "play2-auth-test" % "0.12.0" % "test"
 )
+
+libraryDependencies += "com.rometools" % "rome" % "1.5.0"
+
 
 libraryDependencies += "com.syncthemall" % "boilerpipe" % "1.2.2"
 

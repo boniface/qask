@@ -2,7 +2,9 @@ package controllers
 
 
 import java.io.File
+import java.net.URL
 
+import com.rometools.rome.io.{XmlReader, SyndFeedInput}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import respository._
@@ -15,6 +17,27 @@ import play.api.Play.current
 object Application extends Controller {
 
   def index = Action {
+
+    val sfi = new SyndFeedInput()
+    val urls = List("https://www.facebook.com/feeds/page.php?format=rss20&id=1512926715599838")
+
+    urls.foreach(url => {
+      val feed = sfi.build(new XmlReader(new URL(url)))
+
+      val entries = feed.getEntries
+
+      println(feed.getTitle)
+      println(feed.getLink)
+      println(entries.get(0).getLink)
+      println(entries.get(0).getContents)
+      println(entries.get(0).getDescription)
+      println(entries.get(0).getPublishedDate)
+      println(entries.get(0).getTitle)
+      println(entries.get(0).getUri)
+      println(entries.get(0).getForeignMarkup)
+      println(entries.size)
+    })
+
     Ok(views.html.index("Your new application is ready."))
   }
 
