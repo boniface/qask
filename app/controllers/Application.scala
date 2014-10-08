@@ -3,6 +3,7 @@ package controllers
 
 import java.io.File
 import java.net.URL
+import scala.collection.JavaConverters._
 
 import com.rometools.rome.io.{XmlReader, SyndFeedInput}
 import play.api.libs.json.{JsValue, Json}
@@ -24,18 +25,15 @@ object Application extends Controller {
     urls.foreach(url => {
       val feed = sfi.build(new XmlReader(new URL(url)))
 
-      val entries = feed.getEntries
+      val entries = feed.getEntries.asScala.toList
 
-      println(feed.getTitle)
-      println(feed.getLink)
-      println(entries.get(0).getLink)
-      println(entries.get(0).getContents)
-      println(entries.get(0).getDescription)
-      println(entries.get(0).getPublishedDate)
-      println(entries.get(0).getTitle)
-      println(entries.get(0).getUri)
-      println(entries.get(0).getForeignMarkup)
-      println(entries.size)
+      entries foreach(entry => {
+       
+        println("The Contents",entry.getLink)
+        println("Date Published",entry.getPublishedDate)
+
+      })
+
     })
 
     Ok(views.html.index("Your new application is ready."))
