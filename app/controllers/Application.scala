@@ -19,22 +19,7 @@ object Application extends Controller {
 
   def index = Action {
 
-    val sfi = new SyndFeedInput()
-    val urls = List("https://www.facebook.com/feeds/page.php?format=rss20&id=1512926715599838")
 
-    urls.foreach(url => {
-      val feed = sfi.build(new XmlReader(new URL(url)))
-
-      val entries = feed.getEntries.asScala.toList
-
-      entries foreach(entry => {
-       
-        println("The Contents",entry.getLink)
-        println("Date Published",entry.getPublishedDate)
-
-      })
-
-    })
 
     Ok(views.html.index("Your new application is ready."))
   }
@@ -72,6 +57,7 @@ object Application extends Controller {
       st <-StatsRepository.createTable()
       zp <-ZonePostRespository.createTable()
       sp <-SitePostRespository.createTable()
+      smf <-SmFeedsRespository.createTable()
     } yield (ab)
     results map (result => {
       Ok(Json.toJson("Done"))

@@ -14,28 +14,24 @@
  * limitations under the License.
  */
 
-package services
+package domain
 
-import domain.Link
-import respository.LinksRespository
+import play.api.libs.json.Json
 
 /**
- * Created by hashcode on 2014/07/12.
+ * Created by hashcode on 2014/07/11.
  */
-object LinksService {
+case class SocialMediaFeed(zone:String,
+                  id: String,
+                  feedLink: String,
+                  feedType: String,
+                  feedSite: String,
+                  siteLogo: String,
+                  siteCode:String
+                  )
 
-  def save(link: Link)={
-    LinksRespository.save(link)
-  }
-  def getAllLinks = {
-    val result = LinksRespository.getAllLinks
-  }
-  def getLatestLinks(zone:String) = {
-    LinksRespository.getLatestLinks(zone)
-  }
-  def fetchSocialMediaLinks(zone:String) = {
-    SmFeedsService.getFeedsByZone(zone)
-  }
 
+object SocialMediaFeed {
+  implicit val smfeedFmt = Json.format[SocialMediaFeed]
 
 }

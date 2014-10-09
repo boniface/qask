@@ -27,7 +27,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
  * Created by hashcode on 2014/07/12.
  */
 object PostsService {
-
+  def create(post: Post) ={
+    PostRespository.save(post)
+  }
 
   def getPostsByZone(zone: String) = {
    ZonePostRespository.getPostsByZone(zone)

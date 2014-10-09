@@ -14,32 +14,30 @@
  * limitations under the License.
  */
 
-package services
+package models
 
+import java.util.UUID
+import conf.Util
 import domain.Feed
-import respository.FeedsRespository
+import play.api.libs.json.Json
 
 /**
  * Created by hashcode on 2014/07/12.
  */
-object FeedsService {
-
-  def save(feed: Feed) = {
-    FeedsRespository.save(feed)
-  }
-  def getFeedById(zone:String,id: String) = {
-    FeedsRespository.getFeedById(zone,id)
-  }
-  def getFeedsByZone(zone:String) = {
-    FeedsRespository.getFeedsByZone(zone)
-  }
-  def getFeeds = {
-    FeedsRespository.getFeeds
-  }
-  def delete(zone:String,id: String) = {
-    FeedsRespository.deleteFeed(zone,id)
-  }
-
-
-
+case class SmFeedsModel(zone: String,
+                        feedLink: String,
+                        feedType: String,
+                        feedSite: String,
+                        siteLogo: String,
+                        siteCode: String) {
+  def getDomain(): Feed = SmFeedsModel.domain(this)
 }
+
+object SmFeedsModel {
+  implicit val roleFmt = Json.format[SmFeedsModel]
+
+  def domain(model: SmFeedsModel) = {
+    Feed(model.zone, Util.md5Hash(UUID.randomUUID().toString()), model.feedLink, model.feedType, model.feedSite, model.siteLogo, model.siteCode)
+  }
+}
+

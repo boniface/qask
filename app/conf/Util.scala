@@ -20,7 +20,7 @@ object Util extends Enumeration {
     }
   }
 
-  val SPAM, PENDING, APPROVED, QUESTION, RESPONSE, FEED, POST, ENABLED, DISABLED, TODAY,YESTERDAY,WEEK,MONTH = Value
+  val SPAM, PENDING, APPROVED, QUESTION, RESPONSE, SMFEED,FEED, POST, ENABLED, DISABLED, TODAY,YESTERDAY,WEEK,MONTH = Value
 
   def getDate(date: String): Date = {
     date match{
