@@ -35,8 +35,12 @@ object FetchContent {
   }
 
   def getMedecription(article:String)={
+    if(article.length > 156) {
     val description = article.substring(0,156)
     description.split(' ').map(_.capitalize).mkString(" ")
+    } else{
+      article
+    }
   }
   def getPrettySeo(title:String)={
     val cleanedWords = FilterService.removeStopWords(title)

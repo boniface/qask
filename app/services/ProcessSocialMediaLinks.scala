@@ -6,9 +6,11 @@ import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.io.{SyndFeedInput, XmlReader}
 import conf.Util
 import domain.{Post, SocialMediaFeed}
+import org.jsoup.Jsoup
 
 import scala.collection.JavaConverters._
 import scala.concurrent.Future
+import scala.util.matching.Regex
 
 /**
  * Created by hashcode on 2014/10/09.
@@ -32,18 +34,28 @@ object ProcessSocialMediaLinks {
         Util.md5Hash(entry.getLink),
         feed.feedSite,
         entry.getPublishedDate,
-        entry.getTitle(),
-        entry.getDescription.getValue,
-        FetchContent.getMetaKeywords(entry.getDescription.getValue),
-        FetchContent.getMedecription(entry.getDescription.getValue),
+        cleanText(entry.getTitle()),
+        cleanText(entry.getDescription.getValue),
+        FetchContent.getMetaKeywords(cleanText(entry.getTitle)),
+        FetchContent.getMedecription(cleanText(entry.getDescription.getValue)),
         entry.getLink,
-        "no image",
+        getImage(entry.getLink),
         FetchContent.getPrettySeo(entry.getTitle()),
-        "image",
+        getImage(entry.getLink),
         FetchContent.getCaption(),
         feed.siteCode
       )
       PostsService.create(post)
     })
   }
+
+  def getImage(url:String) ={
+    Jsoup.connect(url).get().select("img[src~=(?i)\\.(png|jpe?g|gif)]").attr("src")
+  }
+  def cleanText(title:String)={
+   val text =new Regex("&#039;").replaceAllIn(new Regex("<br />").replaceAllIn(title, " <br/>"), "'")
+    new Regex("&#x2019;").replaceAllIn(new Regex("&#x2018;").replaceAllIn(text, "'"), "'")
+  }
+
+
 }
