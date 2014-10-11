@@ -18,26 +18,26 @@ package models
 
 import java.util.UUID
 import conf.Util
-import domain.Feed
+import domain.{SocialMediaFeed, Feed}
 import play.api.libs.json.Json
 
 /**
  * Created by hashcode on 2014/07/12.
  */
-case class SmFeedsModel(zone: String,
+case class SocialMediaFeedsModel(zone: String,
                         feedLink: String,
                         feedType: String,
                         feedSite: String,
                         siteLogo: String,
                         siteCode: String) {
-  def getDomain(): Feed = SmFeedsModel.domain(this)
+  def getDomain(): SocialMediaFeed = SocialMediaFeedsModel.domain(this)
 }
 
-object SmFeedsModel {
-  implicit val roleFmt = Json.format[SmFeedsModel]
+object SocialMediaFeedsModel {
+  implicit val smFeedFmt = Json.format[SocialMediaFeedsModel]
 
-  def domain(model: SmFeedsModel) = {
-    Feed(model.zone, Util.md5Hash(UUID.randomUUID().toString()), model.feedLink, model.feedType, model.feedSite, model.siteLogo, model.siteCode)
+  def domain(model: SocialMediaFeedsModel) = {
+    SocialMediaFeed(model.zone, Util.md5Hash(UUID.randomUUID().toString()), model.feedLink, model.feedType, model.feedSite, model.siteLogo, model.siteCode)
   }
 }
 

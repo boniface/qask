@@ -9,7 +9,7 @@ import com.rometools.rome.io.{XmlReader, SyndFeedInput}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import respository._
-import services.actors.ContentDisplayActor
+import services.actors.SocialMediaActor
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import play.api.Play.current
@@ -80,7 +80,7 @@ object Application extends Controller {
   def socket = WebSocket.tryAcceptWithActor[String, String] { request =>
     Future.successful(request.session.get("user") match {
       case None => Left(Forbidden)
-      case Some(_) => Right(ContentDisplayActor.props)
+      case Some(_) => Left(Forbidden)
     })
   }
 

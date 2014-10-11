@@ -23,15 +23,15 @@ class FeedsFilterTest extends FeatureSpec with GivenWhenThen {
       //      val links = LinksService.getLatestLinks("ZM")
       //      links map (link => link foreach (l => println(" The links is ", l.url)))
       val feed = SocialMediaFeed("ZM","12","https://www.facebook.com/feeds/page.php?format=rss20&id=1512926715599838","RSS","www.postzambia.com","logo","PS")
-      SmFeedsService.save(feed)
+      SocialMediaFeedsService.save(feed)
 
       val res = ProcessSocialMediaLinks.getSocialMediaFeed("ZM")
       val feeds = Await.result(res, 5000 millis)
 
-      feeds foreach( zone => {
-        val prop = ProcessSocialMediaLinks.fetchLinks(zone.feedLink)
-        ProcessSocialMediaLinks.postSocialMediaContent(prop,zone)
-        prop foreach(link => {
+      feeds foreach( socialMediaFeed => {
+        val syndEnrtryLists = ProcessSocialMediaLinks.fetchLinks(socialMediaFeed.feedLink)
+        ProcessSocialMediaLinks.postSocialMediaContent(syndEnrtryLists,socialMediaFeed)
+        syndEnrtryLists foreach(link => {
           println("The link is ",link.getLink)
           println("The Title is ",link.getTitle)
           println("The Markup is ",link.getDescription.getValue)

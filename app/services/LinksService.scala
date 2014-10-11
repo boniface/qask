@@ -34,7 +34,7 @@ object LinksService {
     LinksRespository.getLatestLinks(zone)
   }
   def fetchSocialMediaLinks(zone:String) = {
-    SmFeedsService.getFeedsByZone(zone)
+    SocialMediaFeedsService.getFeedsByZone(zone)
   }
 
 

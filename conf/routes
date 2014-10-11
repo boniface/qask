@@ -43,13 +43,20 @@ PUT            /api/respnose/update/:id/:resp                   controllers.Resp
 GET            /api/response/get/:zone/:id                      controllers.ResponseController.getResponsesById(zone:String,id:String)
 
 # Feeds
-
 POST           /api/feed/create/:zone                           controllers.FeedsController.create(zone)
 GET            /api/feed/get/:zone/:id                          controllers.FeedsController.getFeedById(zone,id)
 GET            /api/feeds                                       controllers.FeedsController.getFeeds
 GET            /api/feeds/:zone                                 controllers.FeedsController.getFeedsByZone(zone)
 PUT            /api/feed/update/:zone/:id                       controllers.FeedsController.update(zone,id)
 DELETE         /api/feed/delete/:zone/:id                       controllers.FeedsController.deleteFeed(zone,id)
+
+# Social Media Feeds
+POST           /api/smfeed/create/:zone                         controllers.SocialaMediaFeedController.create(zone)
+GET            /api/smfeed/get/:zone/:id                        controllers.SocialaMediaFeedController.getFeedById(zone,id)
+GET            /api/smfeeds                                     controllers.SocialaMediaFeedController.getAllSocialMediaFeeds
+GET            /api/smfeeds/:zone                               controllers.SocialaMediaFeedController.getFeedsByZone(zone)
+PUT            /api/smfeed/update/:zone/:id                     controllers.SocialaMediaFeedController.update(zone,id)
+DELETE         /api/smfeed/delete/:zone/:id                     controllers.SocialaMediaFeedController.deleteFeed(zone,id)
 
 # Posts
 GET            /api/posts/:zone                                 controllers.PostsController.getPostsByZone(zone)

@@ -56,6 +56,7 @@ class SmFeedsRespository extends CassandraTable[SmFeedsRespository, SocialMediaF
 }
 
 object SmFeedsRespository extends SmFeedsRespository with DataConnection {
+
   override lazy val tableName = "smfeeds"
 
   def save(feed: SocialMediaFeed): Future[ResultSet] = {
@@ -70,21 +71,19 @@ object SmFeedsRespository extends SmFeedsRespository with DataConnection {
       .future()
     StatsRepository.statIncrement(Stats(feed.id, feed.zone + Util.SMFEED.toString, 1L))
   }
-
+  def getAllZoneFeeds: Future[Seq[SocialMediaFeed]] = {
+    select.fetchEnumerator() run Iteratee.collect()
+  }
   def getFeedByZone(zone: String, id: String): Future[Option[SocialMediaFeed]] = {
     select.where(_.zone eqs zone).and(_.id eqs id).one()
   }
-
   def getAllZoneFeeds(zone: String): Future[Seq[SocialMediaFeed]] = {
     select.where(_.zone eqs zone).fetchEnumerator() run Iteratee.collect()
   }
-
   def deleteFeed(zone: String, id: String): Future[ResultSet] = {
-    delete.where(_.zone eqs zone).and(_.id eqs id).future();
+    delete.where(_.zone eqs zone).and(_.id eqs id).future()
     StatsRepository.statDecrement(Stats(id, zone + Util.SMFEED.toString, 1L))
   }
-
-
 }
 
 

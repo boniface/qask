@@ -6,7 +6,12 @@ import respository.{SmFeedsRespository, FeedsRespository}
 /**
  * Created by hashcode on 2014/10/08.
  */
-object SmFeedsService {
+object SocialMediaFeedsService {
+  def getAllSocialMediaFeeds = {
+    SmFeedsRespository.getAllZoneFeeds
+  }
+
+
   def save(feed: SocialMediaFeed) = {
     SmFeedsRespository.save(feed)
   }

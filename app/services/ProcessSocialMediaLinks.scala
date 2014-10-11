@@ -18,7 +18,7 @@ import scala.util.matching.Regex
 object ProcessSocialMediaLinks {
 
   def getSocialMediaFeed(zone: String): Future[Seq[SocialMediaFeed]] = {
-    SmFeedsService.getFeedsByZone(zone)
+    SocialMediaFeedsService.getFeedsByZone(zone)
   }
 
   def fetchLinks(feedurl: String): List[SyndEntry] = {
@@ -53,7 +53,7 @@ object ProcessSocialMediaLinks {
     Jsoup.connect(url).get().select("img[src~=(?i)\\.(png|jpe?g|gif)]").attr("src")
   }
   def cleanText(title:String)={
-   val text =new Regex("&#039;").replaceAllIn(new Regex("<br />").replaceAllIn(title, " <br/>"), "'")
+   val text =new Regex("&#039;").replaceAllIn(new Regex("<br />").replaceAllIn(title, "<br/>"), "'")
     new Regex("&#x2019;").replaceAllIn(new Regex("&#x2018;").replaceAllIn(text, "'"), "'")
   }
 
