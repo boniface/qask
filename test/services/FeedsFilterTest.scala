@@ -2,7 +2,7 @@ package services
 
 import domain.{Zone, SocialMediaFeed}
 import org.scalatest.{GivenWhenThen, FeatureSpec}
-import respository.SmFeedsRespository
+import respository.SocialMediaFeedsRespository
 
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global

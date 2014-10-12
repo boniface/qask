@@ -5,7 +5,7 @@ import com.websudos.phantom.CassandraTable
 import com.websudos.phantom.Implicits._
 import com.websudos.phantom.iteratee.Iteratee
 import conf.DataConnection
-import domain.User
+import domain.Account
 
 
 import scala.concurrent.Future
@@ -13,7 +13,7 @@ import scala.concurrent.Future
 /**
  * Created by hashcode on 2014/08/25.
  */
-class UserRepository extends CassandraTable[UserRepository, User] {
+class AccountRepository extends CassandraTable[AccountRepository, Account] {
 
   object email extends StringColumn(this) with PartitionKey[String]
 
@@ -21,10 +21,10 @@ class UserRepository extends CassandraTable[UserRepository, User] {
 
   object authcode extends StringColumn(this)
 
-  object social extends MapColumn[UserRepository, User, String, String](this)
+  object social extends MapColumn[AccountRepository, Account, String, String](this)
 
-  override def fromRow(row: Row): User = {
-    User(
+  override def fromRow(row: Row): Account = {
+    Account(
       email(row),
       screenName(row),
       authcode(row),
@@ -32,10 +32,10 @@ class UserRepository extends CassandraTable[UserRepository, User] {
   }
 }
 
-object UserRepository extends UserRepository with DataConnection {
-  override lazy val tableName = "feeds"
+object AccountRepository extends AccountRepository with DataConnection {
+  override lazy val tableName = "accounts"
 
-  def save(user: User): Future[ResultSet] = {
+  def save(user: Account): Future[ResultSet] = {
     insert
       .value(_.email, user.email)
       .value(_.screenName, user.screenName)
@@ -45,15 +45,15 @@ object UserRepository extends UserRepository with DataConnection {
 
   }
 
-  def getUserById(email: String): Future[Option[User]] = {
+  def getUserById(email: String): Future[Option[Account]] = {
     select.where(_.email eqs email).one()
   }
 
-  def getUserByScreen(email: String, screenName: String): Future[Option[User]] = {
+  def getUserByScreen(email: String, screenName: String): Future[Option[Account]] = {
     select.where(_.email eqs email).and(_.screenName eqs screenName).one()
   }
 
-  def getUsers: Future[Seq[User]] = {
+  def getUsers: Future[Seq[Account]] = {
     select.fetchEnumerator() run Iteratee.collect()
   }
 

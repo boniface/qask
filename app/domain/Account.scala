@@ -5,13 +5,13 @@ import play.api.libs.json.Json
 /**
  * Created by hashcode on 2014/08/25.
  */
-case class User( email: String,
+case class Account( email: String,
                 screenName: String,
                 authcode: String,
                 social: Map[String, String])
 
 
-object User {
-  // Generates Writes and Reads for Feed and User thanks to Json Macros
-  implicit val userFormat = Json.format[User]
+object Account {
+  // Generates Writes and Reads for Feed and Account thanks to Json Macros
+  implicit val userFormat = Json.format[Account]
 }

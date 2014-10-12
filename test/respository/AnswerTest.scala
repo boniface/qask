@@ -14,7 +14,7 @@ class AnswerTest extends FeatureSpec with GivenWhenThen {
 
   feature(" Add Records to the Respository"){
 
-    info(" As a User I want to Add a Record to the Database")
+    info(" As a Account I want to Add a Record to the Database")
     info(" So that I can see the result in the DB")
     info("")
     scenario("Create Tables in The Database "){

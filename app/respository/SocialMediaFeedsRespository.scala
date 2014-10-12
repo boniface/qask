@@ -27,7 +27,7 @@ import scala.concurrent.Future
 /**
  * Created by hashcode on 2014/07/12.
  */
-class SmFeedsRespository extends CassandraTable[SmFeedsRespository, SocialMediaFeed] {
+class SocialMediaFeedsRespository extends CassandraTable[SocialMediaFeedsRespository, SocialMediaFeed] {
 
   object zone extends StringColumn(this) with PartitionKey[String]
 
@@ -55,7 +55,7 @@ class SmFeedsRespository extends CassandraTable[SmFeedsRespository, SocialMediaF
   }
 }
 
-object SmFeedsRespository extends SmFeedsRespository with DataConnection {
+object SocialMediaFeedsRespository extends SocialMediaFeedsRespository with DataConnection {
 
   override lazy val tableName = "smfeeds"
 

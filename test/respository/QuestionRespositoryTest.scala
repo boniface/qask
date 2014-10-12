@@ -12,7 +12,7 @@ import org.scalatest.{GivenWhenThen, FeatureSpec}
 class QuestionRespositoryTest  extends FeatureSpec with GivenWhenThen {
 
   feature(" Add Questions to the Database"){
-    info("As a User ..")
+    info("As a Account ..")
     scenario(" Given These Objects  "){
       val quest1 = Question("12","zm",new Date,"This is Question 1","This is a Question we need to Ask","k@k.com","Test")
       val quest2 = Question("13","za",new Date,"This is Question 1","This is a Question we need to Ask","k@k.com","Test")

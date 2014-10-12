@@ -18,7 +18,7 @@ class RoleTableSetup extends FeatureSpec with GivenWhenThen {
       val roletable = RoleRepository
       When(" When Create method is called ")
       roletable.createTable()
-      SmFeedsRespository.createTable()
+      SocialMediaFeedsRespository.createTable()
       Then(" The The Table is Created")
 
     }

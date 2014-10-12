@@ -57,7 +57,7 @@ object Application extends Controller {
       st <-StatsRepository.createTable()
       zp <-ZonePostRespository.createTable()
       sp <-SitePostRespository.createTable()
-      smf <-SmFeedsRespository.createTable()
+      smf <-SocialMediaFeedsRespository.createTable()
     } yield (ab)
     results map (result => {
       Ok(Json.toJson("Done"))
