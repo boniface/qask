@@ -4,6 +4,8 @@ import java.util.Date
 
 import org.joda.time.{DateTimeConstants, DateTime}
 
+import scala.util.{Failure, Success, Try}
+
 /**
  * Created by hashcode on 2014/08/16.
  */
@@ -35,5 +37,11 @@ object Util extends Enumeration {
 
   def getDateFromString(date:String):Date ={
     DateTime.parse(date).toDate
+  }
+  def getIntFromString(value:String):Int ={
+    Try(Integer.parseInt(value)) match {
+      case Success(ans) => ans
+      case Failure(ex) => 0
+    }
   }
 }

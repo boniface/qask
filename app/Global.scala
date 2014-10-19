@@ -6,7 +6,7 @@ import play.api.libs.concurrent.Akka
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.mvc.WithFilters
 import play.api.{Application, GlobalSettings, Logger}
-import services.actors.ContentProcessingActor
+import services.actors.MainActor
 
 import services.messages.Messages._
 import scala.concurrent.duration._
@@ -24,11 +24,11 @@ object Global extends WithFilters(CORSFilter()) with GlobalSettings {
 
   def schedular(app: Application) = {
     Logger.info("Starting The Daemon")
-    val contentProcessingActor = Akka.system(app).actorOf(Props(new ContentProcessingActor()))
+    val mainActor = Akka.system(app).actorOf(Props(new MainActor()))
     Akka.system(app).scheduler.schedule(
         Duration.create(0, TimeUnit.MILLISECONDS), //Initial delay 0 milliseconds
         Duration.create(20, TimeUnit.MINUTES),     //Frequency 15 minutes
-        contentProcessingActor,  Start("START"))
+        mainActor,  Start("START"))
   }
 
 

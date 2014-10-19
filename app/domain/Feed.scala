@@ -16,21 +16,19 @@
 
 package domain
 
-import java.util.UUID
-
 import play.api.libs.json.Json
 
 /**
  * Created by hashcode on 2014/07/11.
  */
-case class Feed(  zone:String,
-                  id: String,
-                  feedLink: String,
-                  feedType: String,
-                  feedSite: String,
-                  siteLogo: String,
-                  siteCode:String
-                  )
+case class Feed(zone: String,
+                id: String,
+                feedLink: String,
+                feedType: String,
+                feedSite: String,
+                siteLogo: String,
+                siteCode: String
+                 )
 
 object Feed {
   implicit val feedFmt = Json.format[Feed]

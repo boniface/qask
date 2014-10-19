@@ -10,17 +10,17 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Created by hashcode on 2014/09/15.
  */
-class ContentProcessingActor extends Actor {
+class MainActor extends Actor {
   val log = Logging(context.system, this)
 
   override def receive: Receive = {
     case Start(start) => {
       val latestLinks = context.actorOf(Props[GetLinksActor])
       val socialMediaLinks = context.actorOf(Props[GetSocialMediaLiksActor])
-      ZoneService.getZones map (zone => zone foreach (
-        v => {
-          latestLinks ! Zone(v.code)
-          socialMediaLinks ! Zone(v.code)
+      ZoneService.getZones map (zones => zones foreach (
+        zone => {
+          latestLinks ! Zone(zone.code)
+          socialMediaLinks ! Zone(zone.code)
         })
         )
     }
