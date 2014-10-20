@@ -7,6 +7,7 @@ import domain.{CustomFeed, CustomLink}
 import org.jsoup.Jsoup
 import respository.{CustomFeedRepository, CustomLinkRepository}
 import services.customfetch.qfm.Clink
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.collection.JavaConverters._
 import scala.util.{Failure, Success, Try}
@@ -34,7 +35,9 @@ object FetchFeedLinks {
       .filter(link => link.attr("abs:href").contains(filter))) match {
       case Success(result) => result foreach (link => {
         val r = link.attr("abs:href").split("=")
-        plinks.+=(Clink(Util.getIntFromString(r(1)), link.attr("abs:href"), link.text(), zone))
+        if(r.size>1) {
+          plinks.+=(Clink(Util.getIntFromString(r(1)), link.attr("abs:href"), link.text(), zone))
+        }
       })
       case Failure(ex) => scala.collection.mutable.MutableList[Clink]()
     }
@@ -47,15 +50,15 @@ object FetchFeedLinks {
 
   def postLinks(links: scala.collection.mutable.MutableList[Clink], feed: CustomFeed) = {
     links foreach (link => {
-      val result = CustomLinkRepository.getLinkById(link.zone, Util.md5Hash(link.url))
-      result map (res => {
-        res match {
-          case Some => None
+      val results = CustomLinkRepository.getLinkById(link.zone, Util.md5Hash(link.url))
+      results map (result => {
+        result match {
+          case Some(clink) => None
           case None => {
             val value = CustomLink(
               link.zone,
-              Util.md5Hash(link.url),
               new Date(),
+              Util.md5Hash(link.url),
               link.url,
               feed.feedSite,
               feed.siteCode,
@@ -66,5 +69,4 @@ object FetchFeedLinks {
       })
     })
   }
-
 }
