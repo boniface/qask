@@ -15,7 +15,7 @@ import scala.util.{Failure, Success, Try}
 /**
  * Created by hashcode on 2014/10/18.
  */
-object FetchFeedLinks {
+object FetchCustomFeedLinks {
 
   def getFeeds(zone: String, siteCode: String) = {
     CustomFeedRepository.getFeedsBySite(zone, siteCode)
@@ -41,10 +41,10 @@ object FetchFeedLinks {
       })
       case Failure(ex) => scala.collection.mutable.MutableList[Clink]()
     }
-    plinks
+      filterLinks(plinks)
   }
 
-  def filterLinks(links: scala.collection.mutable.MutableList[Clink]) = {
+  private def filterLinks(links: scala.collection.mutable.MutableList[Clink]) = {
     links.filter(link => link.title.length > 12).sortBy(link => link.id).reverse take (20)
   }
 

@@ -40,8 +40,8 @@ class CustomPostTests extends FeatureSpec with GivenWhenThen {
 
 
 
-//      val links = FetchFeedLinks.getLinks("http://postzambia.com/search.php?cmd=category&catid=70", "news")
-//      val results = FetchFeedLinks.filterLinks(links)
+//      val links = FetchCustomFeedLinks.getLinks("http://postzambia.com/search.php?cmd=category&catid=70", "news")
+//      val results = FetchCustomFeedLinks.filterLinks(links)
 //      results foreach (link => println(" The Link is ", link.url, " Title ", link.title))
     }
   }

@@ -10,8 +10,8 @@ case class CustomFeed(zone: String,
                       id: String,
                       feedLink: String,
                       feedSite: String,
-                      siteLogo: String
-
+                      siteLogo: String,
+                      filter:String
                        )
 
 object CustomFeed {

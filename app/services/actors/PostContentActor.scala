@@ -2,6 +2,7 @@ package services.actors
 
 import akka.actor.{Props, Actor}
 import services.PostsService
+import services.customfetch.customsites.PostCustomContent
 import services.messages.Messages._
 
 /**
@@ -12,5 +13,7 @@ class PostContentActor extends Actor{
     case PostContent(post) => {
       PostsService.create(post)
     }
+
+    case PostContentCustom(link) => PostCustomContent.postContent(link)
   }
 }

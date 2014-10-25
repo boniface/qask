@@ -1,7 +1,7 @@
 package respository
 
 import org.scalatest.{FeatureSpec, GivenWhenThen}
-import services.customfetch.FetchFeedLinks
+import services.customfetch.FetchCustomFeedLinks
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
@@ -20,21 +20,19 @@ class CustomLinkTests extends FeatureSpec with GivenWhenThen {
 
       Given(" The Stab to the Database")
       val repo = CustomFeedRepository
-      val repFetch = FetchFeedLinks
+      val repFetch = FetchCustomFeedLinks
       val customFeeds = Await.result(repo.getFeedsByZone("ZM"), 5000 millis)
       customFeeds foreach(customFeed=> {
         val links = repFetch.getLinks(customFeed.feedLink,"news","ZM")
-        val filterLinks = repFetch.filterLinks(links)
-        filterLinks foreach ( link => println("The is is a",customFeed.id))
-        repFetch.postLinks(filterLinks,customFeed)
+        repFetch.postLinks(links,customFeed)
       })
 
 
 
 
 
-//      val links = FetchFeedLinks.getLinks("http://postzambia.com/search.php?cmd=category&catid=70", "news")
-//      val results = FetchFeedLinks.filterLinks(links)
+//      val links = FetchCustomFeedLinks.getLinks("http://postzambia.com/search.php?cmd=category&catid=70", "news")
+//      val results = FetchCustomFeedLinks.filterLinks(links)
 //      results foreach (link => println(" The Link is ", link.url, " Title ", link.title))
     }
   }

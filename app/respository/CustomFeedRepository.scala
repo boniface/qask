@@ -27,6 +27,8 @@ class CustomFeedRepository extends CassandraTable[CustomFeedRepository, CustomFe
 
   object siteLogo extends StringColumn(this)
 
+  object filter extends StringColumn(this)
+
 
   override def fromRow(row: Row): CustomFeed = {
     CustomFeed(
@@ -35,7 +37,8 @@ class CustomFeedRepository extends CassandraTable[CustomFeedRepository, CustomFe
       id(row),
       feedLink(row),
       feedSite(row),
-      siteLogo(row)
+      siteLogo(row),
+      filter(row)
     )
   }
 }
@@ -51,6 +54,7 @@ object CustomFeedRepository extends CustomFeedRepository with DataConnection {
       .value(_.feedLink, feed.feedLink)
       .value(_.feedSite, feed.feedSite)
       .value(_.siteLogo, feed.siteLogo)
+      .value(_.filter, feed.filter)
       .future()
   }
 
