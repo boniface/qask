@@ -10,7 +10,7 @@ import services.messages.Messages._
 class PostContentActor extends Actor{
   override def receive: Receive = {
     case PostContent(post) => {
-      PostsService.createPost(post)
+      PostsService.create(post)
     }
   }
 }

@@ -50,16 +50,12 @@ object CustomLinkRepository extends CustomLinkRepository with DataConnection {
       .value(_.datepublished, link.datePublished)
       .value(_.siteCode, link.siteCode)
       .value(_.title, link.title)
-      .future()
-  }
-
-  def getLinkById(zone:String,linkhash: String): Future[Option[CustomLink]] = {
-    val date = DateTime.now.minusDays(1).toDate
-    select.where(_.zone eqs zone).and(_.datepublished gte date).and(_.linkhash eqs linkhash).one()
-  }
-
-  def getAllLinks: Future[Seq[CustomLink]] = {
-    select.fetchEnumerator() run Iteratee.collect()
+      .future() flatMap {
+      _ =>{
+        CustomProcessedLinkskRepository.insert
+          .value(_.linkhash,link.linkhash)
+          .future()
+      }}
   }
 
   def getLatestLinks(zone: String): Future[Seq[CustomLink]] = {

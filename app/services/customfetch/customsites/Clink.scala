@@ -1,4 +1,4 @@
-package services.customfetch.qfm
+package services.customfetch.customsites
 
 /**
  * Created by hashcode on 2014/10/19.

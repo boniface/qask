@@ -24,7 +24,7 @@ class FilterTest extends FeatureSpec with GivenWhenThen {
       links.foreach (link => {
         println("This Works ", link.url)
         val post = FetchContent.getContent(link)
-        PostsService.createPost(post)
+        PostsService.create(post)
         println("Post Submitted  ", link.url)
       }
         )

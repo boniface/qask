@@ -5,8 +5,8 @@ import java.util.Date
 import conf.Util
 import domain.{CustomFeed, CustomLink}
 import org.jsoup.Jsoup
-import respository.{CustomFeedRepository, CustomLinkRepository}
-import services.customfetch.qfm.Clink
+import respository.{CustomProcessedLinkskRepository, CustomFeedRepository, CustomLinkRepository}
+import services.customfetch.customsites.Clink
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.collection.JavaConverters._
@@ -50,7 +50,7 @@ object FetchFeedLinks {
 
   def postLinks(links: scala.collection.mutable.MutableList[Clink], feed: CustomFeed) = {
     links foreach (link => {
-      val results = CustomLinkRepository.getLinkById(link.zone, Util.md5Hash(link.url))
+      val results = CustomProcessedLinkskRepository.getLinkById(Util.md5Hash(link.url))
       results map (result => {
         result match {
           case Some(clink) => None

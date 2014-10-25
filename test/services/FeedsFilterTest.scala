@@ -22,7 +22,7 @@ class FeedsFilterTest extends FeatureSpec with GivenWhenThen {
       Given("Given a Connection to the Database Through a Respository")
       //      val links = LinksService.getLatestLinks("ZM")
       //      links map (link => link foreach (l => println(" The links is ", l.url)))
-      val feed = SocialMediaFeed("ZM","12","https://www.facebook.com/feeds/page.php?format=rss20&id=1512926715599838","RSS","www.postzambia.com","logo","PS")
+      val feed = SocialMediaFeed("ZM","12","https://www.customsites.com/feeds/page.php?format=rss20&id=1512926715599838","RSS","www.postzambia.com","logo","PS")
       SocialMediaFeedsService.save(feed)
 
       val res = ProcessSocialMediaLinks.getSocialMediaFeed("ZM")

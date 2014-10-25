@@ -68,7 +68,5 @@ object PostsService {
     SitePostRespository.getSiteCustomPosts(domain,start,end)
   }
 
-  def createPost(post:Post) = {
-    PostRespository.save(post)
-  }
+
 }

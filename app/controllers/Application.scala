@@ -60,6 +60,7 @@ object Application extends Controller {
       smf <-SocialMediaFeedsRespository.createTable()
       clk <-CustomLinkRepository.createTable()
       cfr <-CustomFeedRepository.createTable()
+      cpl <-CustomProcessedLinkskRepository.createTable()
     } yield (ab)
     results map (result => {
       Ok(Json.toJson("Done"))
