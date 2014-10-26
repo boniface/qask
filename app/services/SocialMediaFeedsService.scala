@@ -1,7 +1,7 @@
 package services
 
-import domain.{SocialMediaFeed, Feed}
-import respository.{SocialMediaFeedsRespository, FeedsRespository}
+import domain.SocialMediaFeed
+import respository.SocialMediaFeedsRespository
 
 /**
  * Created by hashcode on 2014/10/08.
@@ -11,18 +11,20 @@ object SocialMediaFeedsService {
     SocialMediaFeedsRespository.getAllZoneFeeds
   }
 
-
   def save(feed: SocialMediaFeed) = {
     SocialMediaFeedsRespository.save(feed)
   }
-  def getFeedById(zone:String,id: String) = {
-    SocialMediaFeedsRespository.getFeedByZone(zone,id)
+
+  def getFeedById(zone: String, id: String) = {
+    SocialMediaFeedsRespository.getFeedByZone(zone, id)
   }
-  def getFeedsByZone(zone:String) = {
+
+  def getFeedsByZone(zone: String) = {
     SocialMediaFeedsRespository.getAllZoneFeeds(zone)
   }
-  def delete(zone:String,id: String) = {
-    SocialMediaFeedsRespository.deleteFeed(zone,id)
+
+  def delete(zone: String, id: String) = {
+    SocialMediaFeedsRespository.deleteFeed(zone, id)
   }
 
 }
